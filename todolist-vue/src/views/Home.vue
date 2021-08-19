@@ -6,7 +6,6 @@
 </template>
 
 <script>
-// @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld.vue'
 
 export default {
@@ -23,7 +22,7 @@ export default {
     let _this = this
     this.$axios.get('/hello').then(res=>{
         _this.msg = res.data
-      console.log(res.data)
+       console.log(res.data)
     })
   }
 }
