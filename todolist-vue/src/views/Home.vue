@@ -23,6 +23,7 @@ export default {
     this.$axios.get('/hello').then(res=>{
         _this.msg = res.data
        console.log(res.data)
+      console.log("123213213qwdjansdk")
     })
   }
 }
