@@ -4,17 +4,27 @@
                  text-color="#646464"
                  active-text-color="#2F55D4">
             <el-button type="text" class="head-tag" @click="toIndex"><img src="../assets/geeker-logo.png"/><span>Geerker</span></el-button>
-            <el-menu-item index="1">主页</el-menu-item>
-            <el-submenu index="2">
+            <el-menu-item index="1" id="item-1">主页</el-menu-item>
+            <el-submenu index="2" id="item-2">
                 <template slot="title">筛选</template>
                 <el-menu-item index="2-1">今日</el-menu-item>
                 <el-menu-item index="2-2">已完成</el-menu-item>
                 <el-menu-item index="2-3">未完成</el-menu-item>
             </el-submenu>
-            <el-menu-item index="3">消息中心</el-menu-item>
-            <el-menu-item index="4">订单管理</el-menu-item>
-            <el-button type="text" class="head-login" @click="loginEvent" >登录</el-button>
-
+            <el-menu-item index="3" id="item-3">详情</el-menu-item>
+            <el-menu-item index="4" id="item-4">历史</el-menu-item>
+            <el-submenu index="5" class="flexible-content">
+                <template slot="title">📋</template>
+                <el-menu-item index="5-1">主页</el-menu-item>
+                <el-submenu index="5-2">
+                    <template slot="title">筛选</template>
+                    <el-menu-item index="5-2-1">今日</el-menu-item>
+                    <el-menu-item index="5-2-2">已完成</el-menu-item>
+                    <el-menu-item index="5-2-3">未完成</el-menu-item>
+                </el-submenu>
+                <el-menu-item index="5-3" >登录</el-menu-item>
+            </el-submenu>
+            <el-button type="text" class="head-login" @click="loginEvent" id="item-login">登录</el-button>
         </el-menu>
         <div class="line"></div>
     </div>
@@ -49,7 +59,6 @@
         height: 70px;
         z-index: 5;
         background: #F8F9FC;
-        border: black 2px solid;
         padding-top: 10px;
     }
     .head-tag {
@@ -61,10 +70,8 @@
         height: 100%;
         float: left;
         margin-right: 30px;
-        border: blueviolet 1px solid;
     }
     .head-tag img {
-        border: red 1px solid;
         margin-top: -10px;
         margin-left: 40px;
         height: 50px;
@@ -74,7 +81,6 @@
     .head-tag span {
         margin-left: 6px;
         margin-top: 8px;
-        border: black 1px solid;
         display:block;
         float: left;
         color: #2F55D4;
@@ -90,6 +96,74 @@
         margin-right: 20px;
         margin-top: 15px;
         color: #2F55D4;
-        border: #2ECA9A 2px solid;
+    }
+    .flexible-content {
+        display: none;
+        float: right;
+        margin-left: 300px;
+        margin-top: 7px;
+    }
+    @media (max-width: 768px) {
+        .flexible-content {
+            display: block;
+        }
+        .el-menu #item-1{
+            display: none;
+        }
+        .el-menu #item-2{
+            display: none;
+        }
+        .el-menu #item-3{
+            display: none;
+        }
+        .el-menu #item-4{
+            display: none;
+        }
+        .el-menu #item-login{
+            display: none;
+        }
+    }
+    /*再修改 这样不好*/
+    @media (max-width: 660px) {
+        .flexible-content {
+            display: block;
+            margin-left: 200px;
+        }
+    }
+    @media (max-width: 560px) {
+        .flexible-content {
+            display: block;
+            margin-left: 140px;
+        }
+    }
+    @media (max-width: 494px) {
+        .flexible-content {
+            display: block;
+            margin-left: 100px;
+        }
+    }
+    @media (max-width: 456px) {
+        .flexible-content {
+            display: block;
+            margin-left: 70px;
+        }
+    }
+    @media (max-width: 430px) {
+        .flexible-content {
+            display: block;
+            margin-left: 50px;
+        }
+    }
+    @media (max-width: 405px) {
+        .flexible-content {
+            display: block;
+            margin-left: 20px;
+        }
+    }
+    @media (max-width: 372px) {
+        .flexible-content {
+            display: block;
+            margin-left: -10px;
+        }
     }
 </style>
