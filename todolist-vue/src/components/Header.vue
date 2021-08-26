@@ -31,6 +31,8 @@
 </template>
 
 <script>
+    import router from "../router";
+
     export default {
         name: "Header",
         data() {
@@ -43,7 +45,7 @@
                 console.log(key);
             },
             loginEvent() {
-                console.log("login")
+                router.push({name:"register"});
             },
             toIndex() {
                 console.log("index")
