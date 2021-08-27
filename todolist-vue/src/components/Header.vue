@@ -59,7 +59,6 @@
         height: 70px;
         z-index: 5;
         background: #F8F9FC;
-        padding-top: 10px;
     }
     .head-tag {
         color: #409EFF;
@@ -70,6 +69,7 @@
         height: 100%;
         float: left;
         margin-right: 30px;
+        background: #F8F9FC;
     }
     .head-tag img {
         margin-top: -10px;
@@ -84,11 +84,13 @@
         display:block;
         float: left;
         color: #2F55D4;
+        background: #F8F9FC;
     }
     .el-menu-demo{
         width: 100%;
         float: left;
         height: 100%;
+        background: #F8F9FC;
     }
     .head-login {
         float: right;
@@ -96,12 +98,14 @@
         margin-right: 20px;
         margin-top: 15px;
         color: #2F55D4;
+        background: #F8F9FC;
     }
     .flexible-content {
         display: none;
         float: right;
         margin-left: 300px;
         margin-top: 7px;
+        background: #F8F9FC;
     }
     @media (max-width: 768px) {
         .flexible-content {
