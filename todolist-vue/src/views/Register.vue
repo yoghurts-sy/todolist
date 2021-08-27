@@ -30,6 +30,8 @@
   </div>
 </template>
 
+// 改用带表单校验
+
 <script>
 import Header from "../components/Header";
 
