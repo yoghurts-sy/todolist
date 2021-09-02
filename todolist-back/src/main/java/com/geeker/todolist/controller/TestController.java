@@ -23,4 +23,10 @@ public class TestController {
         list.add("12312312");
         return list;
     }
+    @GetMapping("/test")
+    public String test() {
+        return "321 hello vue";
+    }
+
+
 }
