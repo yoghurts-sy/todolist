@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="container">
         <Header></Header>
         <div class="pic-container">
             <div class="container-middle">
@@ -42,6 +42,9 @@
 </script>
 
 <style scoped>
+    .container {
+        background: #F8F9FC;
+    }
     .pic-container{
         width: 100%;
         border: red 1px solid;
