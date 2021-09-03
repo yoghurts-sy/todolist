@@ -16,7 +16,14 @@
             <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
             <el-button @click="resetForm('ruleForm')">重置</el-button>
           </el-form-item>
+
         </el-form>
+
+        <div>
+          <span style="font-size: 13px">首次使用？</span>
+          <el-button type="text" @click="register">点我注册</el-button>
+        </div>
+
       </div>
 
 
@@ -32,22 +39,7 @@ export default {
   name: "Register",
   components: {Header},
   data(){
-    var checkAge = (rule, value, callback) => {
-      if (!value) {
-        return callback(new Error('年龄不能为空'));
-      }
-      setTimeout(() => {
-        if (!Number.isInteger(value)) {
-          callback(new Error('请输入数字值'));
-        } else {
-          if (value < 18) {
-            callback(new Error('必须年满18岁'));
-          } else {
-            callback();
-          }
-        }
-      }, 1000);
-    };
+
     var validatePass = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请输入密码'));
@@ -79,9 +71,6 @@ export default {
         checkPass: [
           { validator: validatePass2, trigger: 'blur' }
         ],
-        age: [
-          { validator: checkAge, trigger: 'blur' }
-        ]
       }
     }
   },
@@ -89,10 +78,16 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert('submit!');
           console.log(this.ruleForm);
           this.$axios.post("/geeker/api/login", this.ruleForm).then(res=> {
-            console.log(res.data)
+            console.log(res.data);
+            if(res.data.msg != "success") {
+              alert(res.data.msg);
+            }else{
+              this.$router.push({name:"Index"});
+              this.$store.state.isLogin = true;
+              this.$store.state.user.email = this.ruleForm.email;
+            }
           })
           console.log(this.ruleForm);
         } else {
@@ -102,7 +97,10 @@ export default {
       });
     },
     resetForm(formName) {
-      this.$refs[formName].resetFields();
+      this.ruleForm = {};
+    },
+    register(){
+      this.$router.push({name:"UserRegister"})
     }
   }
 }
@@ -115,6 +113,15 @@ export default {
   grid-template-rows: 1fr 4fr 1fr;
   grid-column-gap: 0;
   grid-row-gap: 0;
+}
+
+.head{
+  float: right;
+  width: 100px;
+  margin-right: 20px;
+  margin-top: 15px;
+  color: #2F55D4;
+  background: rgba(2, 5, 12, 0.91);
 }
 
 .div1 { grid-area: 1 / 1 / 2 / 4; }
