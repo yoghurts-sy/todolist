@@ -3,8 +3,8 @@
         <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect"
                  text-color="#646464"
                  active-text-color="#2F55D4">
-            <el-button type="text" class="head-tag" @click="toIndex"><img src="../assets/geeker-logo.png"/><span style="font-style: italic">Geerker</span></el-button>
-            <el-menu-item index="1" id="item-1">主页</el-menu-item>
+            <el-button type="text" class="head-tag" @click="toIndex"><img src="../assets/geeker-logo.png"/><span>Geerker</span></el-button>
+            <el-menu-item index="1" id="item-1" @click="toIndex">主页</el-menu-item>
             <el-submenu index="2" id="item-2">
                 <template slot="title">筛选</template>
                 <el-menu-item index="2-1">今日</el-menu-item>
@@ -24,7 +24,14 @@
                 </el-submenu>
                 <el-menu-item index="5-3" >登录</el-menu-item>
             </el-submenu>
-            <el-button type="text" class="head-login" @click="loginEvent" id="item-login">登录</el-button>
+
+          <el-submenu index="6" id="item-login" style="float: right" v-if="this.$store.state.isLogin">
+            <template slot="title">{{this.$store.state.user.email}}</template>
+            <el-menu-item index="6-1"><i class="el-icon-user"></i>个人中心</el-menu-item>
+            <el-menu-item index="6-2" @click="quit"><i class="el-icon-close"></i>退出登录</el-menu-item>
+          </el-submenu>
+            <el-button type="text" class="head-login" @click="loginEvent" id="item-login" v-if="!this.$store.state.isLogin">登录</el-button>
+
         </el-menu>
         <div class="line"></div>
     </div>
@@ -36,7 +43,7 @@
         name: "Header",
         data() {
             return {
-                activeIndex: '1'
+              activeIndex: '1',
             }
         },
         methods:{
@@ -47,8 +54,12 @@
                 router.push({name:"register"});
             },
             toIndex() {
-                console.log("index")
-            }
+                router.push({name:'Index'});
+            },
+          quit(){
+            this.$store.state.isLogin = false;
+          }
+
         }
     }
 </script>
