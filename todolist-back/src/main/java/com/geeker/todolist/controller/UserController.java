@@ -40,6 +40,25 @@ private UsersService usersService;
 
             return resultInfo;
     }
+    @PostMapping("/register")
+    @ResponseBody
+    public ResultInfo userRegister(@RequestBody LoginDto user){
+        ResultInfo resultInfo = new ResultInfo();
+        String email = user.getEmail();
+        String password = user.getPassword();
+        try{
+            UserModel userModel=usersService.userRegister(email,password);
+            resultInfo.setResult(userModel);
+        }catch (ParamsException p){
+            resultInfo.setCode(p.getCode());
+            resultInfo.setMsg(p.getMsg());
+            p.printStackTrace();
+        }catch (Exception e){
+            resultInfo.setCode(500);
+            resultInfo.setMsg("注册失败");
+        }
+        return resultInfo;
+    }
 
     /*
     feature 1: 调用数据库，完成后端登录逻辑的验证
