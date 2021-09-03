@@ -39,7 +39,6 @@
 
 <script>
     import router from "../router";
-
     export default {
         name: "Header",
         data() {
@@ -70,8 +69,11 @@
         max-width: 1080px;
         margin: 0 auto;
         height: 70px;
-        z-index: 5;
         background: #F8F9FC;
+
+        position: sticky;
+        top: 0;
+        z-index: 1000;
     }
     .head-tag {
         color: #409EFF;
