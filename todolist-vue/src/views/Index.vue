@@ -18,6 +18,18 @@
                 </div>
             </div>
         </div>
+        <div class="carousel-container" >
+            <el-carousel :interval="400000" type="card" class="carousel" height="350px">
+                <el-carousel-item v-for="item in carouselImages" :key="item">
+                    <div class="carousel-img-container">
+                        <img :src="item.src"  class="carousel-img">
+                    </div>
+
+                    <div class="carousel-text"></div>
+                </el-carousel-item>
+            </el-carousel>
+        </div>
+
     </div>
 </template>
 
@@ -28,6 +40,11 @@
         components: {Header},
         data() {
             return {
+                carouselImages:[
+                    {id:"1", src:require("../assets/msaintroduction1.png")},
+                    {id:"2", src:require("../assets/msaintroduction2.png")},
+                    {id:"3", src:require("../assets/msaintroduction3.png")}
+                ]
             }
         },
         methods:{
@@ -167,6 +184,48 @@
         .showVersion {
             display: none;
         }
+    }
+
+    .carousel-container {
+        width: 100%;
+        border: red 1px solid;
+        background: white;
+        height: 550px;
+        text-align: center;
+    }
+    .carousel {
+        margin: 0 auto;
+        width: 60%;
+    }
+
+    .el-carousel__item:nth-child(2n) {
+        background-color:white;
+        /*background-color: rgba(255,255,255,0);*/
+        border: 2px black solid;
+    }
+
+    .el-carousel__item:nth-child(2n+1) {
+        background-color:white;
+        /*background-color: rgba(255,255,255,0);*/
+        border: 2px black solid;
+    }
+
+    /*el-carousel-item img {
+        opacity: 100%;
+    }*/
+
+    .carousel-img-container {
+        
+    }
+
+    .carousel-img {
+    }
+    .carousel-text {
+
+        height: 320px;
+        width: 120px;
+        overflow: hidden;
+        border: pink 2px solid;
     }
 
 
