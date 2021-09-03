@@ -10,4 +10,7 @@ import java.util.List;
 public interface UsersMapper {
     User queryUserByEmail(@Param("uEmail") String uEmail);
     List<User> queryUsers();
+    int registerUser(@Param("uEmail") String uEmail,@Param("uPassword") String uPassword);
+    int updateUser(@Param("uEmail") String uEmail );
+    //int selectIdByEmail(@Param("uEmail") String uEmail);
 }
