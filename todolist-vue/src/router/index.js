@@ -4,6 +4,14 @@ import Index from "../views/Index";
 
 Vue.use(VueRouter)
 
+
+// 解决ElementUI导航栏中的vue-router在3.0版本以上重复点菜单报错问题
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location) {
+    return originalPush.call(this, location).catch(err => err)
+}
+
+
 const routes = [
   {
     path: '/',
@@ -14,7 +22,13 @@ const routes = [
     path: '/register',
     name: 'register',
     component: () => import('../views/Register.vue')
-  }
+  },
+    {
+        path: '/usrregis',
+        name:'UserRegister',
+        component: ()=> import('../views/UserRegister')
+    }
+
 ]
 
 const router = new VueRouter({

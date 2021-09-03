@@ -8,5 +8,4 @@ import java.io.Serializable;
 public class LoginDto implements Serializable {
     private String email;
     private String password;
-
 }
