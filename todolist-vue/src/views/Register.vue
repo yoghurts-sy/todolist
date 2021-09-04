@@ -79,14 +79,15 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           console.log(this.ruleForm);
-          this.$axios.post("/geeker/api/login", this.ruleForm).then(res=> {
+          this.$axios.post("/geeker/api/register", this.ruleForm).then(res=> {
             console.log(res.data);
             if(res.data.msg != "success") {
               alert(res.data.msg);
             }else{
               this.$router.push({name:"Index"});
               this.$store.state.isLogin = true;
-              this.$store.state.user.email = this.ruleForm.email;
+              this.$store.state.user.email = this.res.data;
+              this.$store.state.user.token = this.res.data;
             }
           })
           console.log(this.ruleForm);

@@ -20,11 +20,10 @@
         </div>
         <div class="carousel-container" >
             <el-carousel :interval="400000" type="card" class="carousel" height="350px">
-                <el-carousel-item v-for="item in carouselImages" :key="item">
+                <el-carousel-item v-for="(item,id) in carouselImages" :key="id">
                     <div class="carousel-img-container">
                         <img :src="item.src"  class="carousel-img">
                     </div>
-
                     <div class="carousel-text"></div>
                 </el-carousel-item>
             </el-carousel>
@@ -44,8 +43,12 @@
                     {id:"1", src:require("../assets/msaintroduction1.png")},
                     {id:"2", src:require("../assets/msaintroduction2.png")},
                     {id:"3", src:require("../assets/msaintroduction3.png")}
-                ]
+                ],
+
             }
+        },
+        mounted() {
+            window.addEventListener('scroll',this.handleScroll,true);
         },
         methods:{
             toAction() {
@@ -53,7 +56,8 @@
             },
             toAbout() {
                 console.log("go to About!")
-            }
+            },
+
         }
     }
 </script>
@@ -64,13 +68,11 @@
     }
     .pic-container{
         width: 100%;
-        border: red 1px solid;
         background: #F8F9FC;
         height: 550px;
     }
     .container-middle{
         max-width: 1080px;
-        border: blueviolet 1px solid;
         height: 100%;
         margin: 0 auto;
     }
@@ -78,31 +80,25 @@
         width: 38%;
         height: 100%;
         float: left;
-        border: black 1px solid;
         margin-left: 5px;
     }
     .container-middle-item2 {
         width: 60%;
         height: 100%;
         float: left;
-        border: blueviolet 1px solid;
         margin-left: 5px;
     }
     .welcome{
-        border: orange 1px solid;
         margin-top: 200px;
-
     }
     .welcome-span1{
         font-family: "JetBrains Mono",serif;
-        border: black 1px solid;
         font-weight: bolder;
         font-size: 40px;
         margin-left: 10px;
     }
     .welcome-span2 {
         font-family: "JetBrains Mono",serif;
-        border: black 1px solid;
         font-weight: bold;
         font-size: 25px;
         color: #2ECA9A;
@@ -111,7 +107,6 @@
     .welcome2 {
         color: #8492A6;
         font-family: "JetBrains Mono",serif;
-        border: green 1px solid;
         margin-top: 35px;
         font-weight: bold;
         font-size: 20px;
@@ -120,12 +115,10 @@
     }
     .welcome3-action {
         margin-top: 35px;
-        border: #2ECA9A 2px solid;
         height: 50px;
     }
     .wel-btn1 {
         border-radius: 5px;
-        border: #2F55D4 2px solid;
         width: 150px;
         height: 100%;
         margin-left: 18px;
@@ -142,7 +135,6 @@
     }
     .wel-btn2 {
         border-radius: 5px;
-        border: #2F55D4 2px solid;
         width: 150px;
         height: 100%;
         margin-left: 18px;
@@ -157,7 +149,6 @@
     .showVersion {
         color: #8492A6;
         font-family: "JetBrains Mono Light",serif;
-        border: gray 1px solid;
         margin-top: 20px;
         font-weight: bold;
         font-size: 16px;
@@ -199,33 +190,20 @@
     }
 
     .el-carousel__item:nth-child(2n) {
-        background-color:white;
-        /*background-color: rgba(255,255,255,0);*/
-        border: 2px black solid;
+        background-color: rgba(255,255,255,0);
     }
 
     .el-carousel__item:nth-child(2n+1) {
-        background-color:white;
-        /*background-color: rgba(255,255,255,0);*/
-        border: 2px black solid;
+        background-color: rgba(255,255,255,0);
     }
 
-    /*el-carousel-item img {
-        opacity: 100%;
-    }*/
-
     .carousel-img-container {
-        
+
     }
 
     .carousel-img {
-    }
-    .carousel-text {
-
-        height: 320px;
-        width: 120px;
-        overflow: hidden;
-        border: pink 2px solid;
+        height: 350px;
+        width: 300px;
     }
 
 
