@@ -6,7 +6,7 @@
     <div class="div2">
 
       <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-        <el-form-item label="邮箱" >
+        <el-form-item label="邮箱" prop="email" >
           <el-input type="text" v-model="ruleForm.email" ></el-input>
         </el-form-item>
 
