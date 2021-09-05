@@ -77,7 +77,7 @@
                 }
             },
             loginEvent() {
-                router.push({name:"register"});
+                router.push({name:"Login"});
             },
             toIndex() {
                 router.push({name:'Index'});
