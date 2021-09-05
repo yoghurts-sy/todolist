@@ -87,7 +87,7 @@
               },
             handleScroll(){
                 let scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
-                if (scrollTop === 0) {
+                if (scrollTop === 0 && (this.$route.path === '/' || this.$route.path === '/index')) {
                     this.bgColor = "background: #F8F9FC;"
                 } else {
                     this.bgColor = ""
