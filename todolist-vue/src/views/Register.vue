@@ -1,30 +1,29 @@
 <template>
   <div class="parent">
-      <div class="div1">
-        <Header></Header>
-      </div>
-      <div class="div2">
+    <div class="head">
+      <Header></Header>
+    </div>
+    <div class="body">
 
-        <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-          <el-form-item label="用户名" prop="name">
-            <el-input v-model="ruleForm.email" ></el-input>
-          </el-form-item>
-          <el-form-item label="密码" prop="pass">
-            <el-input type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item>
-            <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
-            <el-button @click="resetForm('ruleForm')">重置</el-button>
-          </el-form-item>
+      <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+        <el-form-item label="邮箱" prop="email">
+          <el-input v-model="ruleForm.email"></el-input>
+        </el-form-item>
+        <el-form-item label="密码" prop="pass">
+          <el-input type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
+          <el-button @click="resetForm('ruleForm')">重置</el-button>
+        </el-form-item>
 
-        </el-form>
-
-        <div>
+        <el-form-item>
           <span style="font-size: 13px">首次使用？</span>
           <el-button type="text" @click="register">点我注册</el-button>
-        </div>
+        </el-form-item>
+      </el-form>
 
-      </div>
+    </div>
 
 
   </div>
@@ -38,7 +37,7 @@ import Header from "../components/Header";
 export default {
   name: "Register",
   components: {Header},
-  data(){
+  data() {
 
     var validatePass = (rule, value, callback) => {
       if (value === '') {
@@ -61,15 +60,15 @@ export default {
     };
     return {
       ruleForm: {
-        email:'',
-        password:''
+        email: '',
+        password: ''
       },
       rules: {
         pass: [
-          { validator: validatePass, trigger: 'blur' }
+          {validator: validatePass, trigger: 'blur'}
         ],
         checkPass: [
-          { validator: validatePass2, trigger: 'blur' }
+          {validator: validatePass2, trigger: 'blur'}
         ],
       }
     }
@@ -79,12 +78,12 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           console.log(this.ruleForm);
-          this.$axios.post("/geeker/api/login", this.ruleForm).then(res=> {
+          this.$axios.post("/geeker/api/login", this.ruleForm).then(res => {
             console.log(res.data);
-            if(res.data.msg != "success") {
+            if (res.data.msg != "success") {
               alert(res.data.msg);
-            }else{
-              this.$router.push({name:"Index"});
+            } else {
+              this.$router.push({name: "Index"});
               this.$store.state.isLogin = true;
               this.$store.state.user.email = this.ruleForm.email;
             }
@@ -99,8 +98,8 @@ export default {
     resetForm(formName) {
       this.ruleForm = {};
     },
-    register(){
-      this.$router.push({name:"UserRegister"})
+    register() {
+      this.$router.push({name: "UserRegister"})
     }
   }
 }
@@ -109,21 +108,21 @@ export default {
 <style scoped>
 .parent {
   display: grid;
-  grid-template-columns: 1fr 7fr 1fr;
-  grid-template-rows: 1fr 4fr 1fr;
-  grid-column-gap: 0;
-  grid-row-gap: 0;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(9, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
 }
 
-.head{
-  float: right;
-  width: 100px;
-  margin-right: 20px;
-  margin-top: 15px;
-  color: #2F55D4;
-  background: rgba(2, 5, 12, 0.91);
+.body {
+  grid-area: 3 / 3 / 7 / 6;
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  background: #F8F9FC;
 }
 
-.div1 { grid-area: 1 / 1 / 2 / 4; }
-.div2 { grid-area: 2 / 2 / 3 / 3; }
+.head {
+  grid-area: 1 / 1 / 2 / 8;
+}
 </style>
