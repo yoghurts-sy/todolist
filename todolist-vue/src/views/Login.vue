@@ -6,20 +6,20 @@
     <div class="body">
 
       <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-        <el-form-item label="邮箱" prop="email" >
-          <el-input type="text" v-model="ruleForm.email" autocomplete="off"></el-input>
+        <el-form-item label="邮箱" prop="email">
+          <el-input v-model="ruleForm.email" autocomplete="off"></el-input>
         </el-form-item>
-
         <el-form-item label="密码" prop="pass">
           <el-input type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="确认密码" prop="checkPass">
-          <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
+        <el-form-item>
+          <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
+          <el-button @click="resetForm('ruleForm')">重置</el-button>
         </el-form-item>
 
         <el-form-item>
-          <el-button type="primary" @click="submitForm('ruleForm')">注册</el-button>
-          <el-button @click="resetForm('ruleForm')">重置</el-button>
+          <span style="font-size: 13px">首次使用？</span>
+          <el-button type="text" @click="register">点我注册</el-button>
         </el-form-item>
       </el-form>
 
@@ -29,13 +29,16 @@
   </div>
 </template>
 
+// 改用带表单校验
+
 <script>
 import Header from "../components/Header";
 
 export default {
-  name: "Register",
+  name: "Login",
   components: {Header},
   data() {
+
     var validatePass = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请输入密码'));
@@ -65,6 +68,8 @@ export default {
     }
     return {
       ruleForm: {
+        email: '',
+        password: ''
       },
       rules: {
         pass: [
@@ -73,42 +78,44 @@ export default {
         checkPass: [
           {validator: validatePass2, trigger: 'blur'}
         ],
-        email:[
+        email: [
           {validator: validataEmail, trigger: 'blur'}
         ]
       }
-    };
+    }
   },
   methods: {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.$axios.post('/geeker/api/register', this.ruleForm).then(res=>{
+          console.log(this.ruleForm);
+
+          this.$axios.post("/geeker/api/login", this.ruleForm).then(res=> {
             console.log(res.data);
-            if(res.data.msg!="success"){
+            if (res.data.msg != "success") {
               alert(res.data.msg);
-            }else{
-              alert("注册成功，即将返回主页");
-              this.$store.state.isLogin=true;
+            } else {
+              this.$router.push({name: "Tasks"});
+              this.$store.state.isLogin = true;
               this.$store.state.user.email = this.ruleForm.email;
-              this.$router.push({name:'Tasks'});
             }
           })
+          console.log(this.ruleForm);
         } else {
           console.log('error submit!!');
           return false;
         }
       });
     },
-    resetForm(formName)
-    {
-      this.ruleForm={};
+    resetForm(formName) {
+      this.ruleForm = {};
+    },
+    register() {
+      this.$router.push({name: "Register"})
     }
   }
-
 }
 </script>
-
 
 <style scoped>
 .parent {
@@ -119,8 +126,11 @@ export default {
   grid-row-gap: 0px;
 }
 
-.body { grid-area: 3 / 3 / 7 / 6; }
-.head { grid-area: 1 / 1 / 2 / 8; }
+.body {
+  grid-area: 3 / 3 / 7 / 6;
+}
 
-
+.head {
+  grid-area: 1 / 1 / 2 / 8;
+}
 </style>

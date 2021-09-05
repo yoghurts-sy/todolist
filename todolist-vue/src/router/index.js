@@ -26,13 +26,13 @@ const routes = [
     },
  {
     path: '/register',
-    name: 'register',
+    name: 'Register',
     component: () => import('../views/Register.vue')
   },
     {
-        path: '/usrregis',
-        name:'UserRegister',
-        component: ()=> import('../views/UserRegister')
+        path: '/login',
+        name:'Login',
+        component: ()=> import('../views/Login')
     },
     {
         path: '/tasks',

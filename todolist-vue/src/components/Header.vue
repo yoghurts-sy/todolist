@@ -28,7 +28,7 @@
             </el-submenu>
 
             <el-submenu index="7" id="item-login" style="float: right" v-if="this.$store.state.isLogin">
-                <template slot="title">{{this.$store.state.user.email}}</template>
+                <template slot="title">{{$store.state.user.email}}</template>
                 <el-menu-item index="7-1"><i class="el-icon-user"></i>个人中心</el-menu-item>
                 <el-menu-item index="7-2" @click="quit"><i class="el-icon-close"></i>退出登录</el-menu-item>
             </el-submenu>
@@ -77,7 +77,7 @@
                 }
             },
             loginEvent() {
-                router.push({name:"register"});
+                router.push({name:"Login"});
             },
             toIndex() {
                 router.push({name:'Index'});
