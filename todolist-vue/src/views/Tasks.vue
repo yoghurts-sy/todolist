@@ -24,11 +24,33 @@
                     <!--<el-link icon="el-icon-more" class="moreButton"  :underline="false"></el-link>-->
                 </div>
             </el-card>
-            <el-button class="finishedButton" size="mini" @click="loadFinishedTasks"><i class="el-icon-arrow-right" ref="finishedButtonIcon"></i> 已完成
+            <el-button class="finishedButton"  size="mini" @click="loadFinishedTasks"><i class="el-icon-arrow-right" ref="finishedButtonIcon"></i> 已完成
                 <span style="color:#ACB0AE">
-                    {{finishedTasksCount}}
+                    {{finishedTasks.length}}
                 </span>
             </el-button>
+            <el-card class="box-card" v-if="showFinished" v-for="(item,id) in finishedTasks" :key="id">
+                <div class="task-item">
+                    <el-button size="mini" class="finishButton" circle>
+                        <i class="el-icon-check" ref="icons" style="color: green"></i>
+                    </el-button>
+                    <div class="task-content" style="text-decoration: line-through;">
+                        {{item.content}}
+                    </div>
+                    <el-dropdown class="moreButton">
+                          <span class="el-dropdown-link">
+                            <i class="el-icon-more"></i>
+                          </span>
+                        <el-dropdown-menu slot="dropdown">
+                            <el-dropdown-item>黄金糕</el-dropdown-item>
+                            <el-dropdown-item divided>狮子头</el-dropdown-item>
+                            <el-dropdown-item divided>螺蛳粉</el-dropdown-item>
+                            <el-dropdown-item divided>蚵仔煎</el-dropdown-item>
+                        </el-dropdown-menu>
+                    </el-dropdown>
+                    <!--<el-link icon="el-icon-more" class="moreButton"  :underline="false"></el-link>-->
+                </div>
+            </el-card>
         </div>
 
     </div>
@@ -43,7 +65,9 @@
             return{
                 tasksCount:0,
                 finishedTasksCount:24,
-                tasks: [{
+                showFinished:false,
+                tasks: [
+                    {
                     index:'0',
                     content: '要把span转给块级元素才行。在span的css中加入以下属性即可。是行内元素，span只有margin-left和margin-right才有效果。要想margin-top生效就要把span转给块级元素才行。在span的css中加入以下属性即可。',
                     timestamp: '2018-04-12 20:46',
@@ -91,7 +115,48 @@
                     index:'11',
                     content: '默认样式的节点',
                     timestamp: '2018-04-03 20:46',
-                }]
+                }],
+                finishedTasks:[
+                    {
+                        index:'0',
+                        content: '要把span转给块级元素才行。在span的css中加入以下属性即可。是行内元素，span只有margin-left和margin-right才有效果。要想margin-top生效就要把span转给块级元素才行。在span的css中加入以下属性即可。',
+                        timestamp: '2018-04-12 20:46',
+                    },
+                    {
+                        index:'1',
+                        content: '要把span转给块级元素才行。在span的css中加入以下属性即可。是行内元素，span只有margin-left和margin-right才有效果。要想margin-top生效就要把span转给块级元素才行。在span的css中加入以下属性即可。',
+                        timestamp: '2018-04-12 20:46',
+                    },{
+                        index:'2',
+                        content: '在span的css中加入以下属性即可。是行内元素，要想margin-top生效就要把span转给块级元素才行。在span的css中加入以下属性即可。',
+                        timestamp: '2018-04-12 20:46',
+                    },
+                    {
+                        index:'3',
+                        content: '在span的css中加入以下属性即可。是行内元素，要想margin-top生效就要把span转给块级元素才行。在span的css中加入以下属性即可。',
+                        timestamp: '2018-04-12 20:46',
+                    },
+                    {
+                        index:'4',
+                        content: '在span的css中加入以下属性即可。是行内元素，要想margin-top生效就要把span转给块级元素才行。在span的css中加入以下属性即可。',
+                        timestamp: '2018-04-12 20:46',
+                    },
+                    {
+                        index:'5',
+                        content: '在span的css中加入以下属性即可。是行内元素，要想margin-top生效就要把span转给块级元素才行。在span的css中加入以下属性即可。',
+                        timestamp: '2018-04-12 20:46',
+                    },
+                    {
+                        index:'6',
+                        content: '在span的css中加入以下属性即可。是行内元素，要想margin-top生效就要把span转给块级元素才行。在span的css中加入以下属性即可。',
+                        timestamp: '2018-04-12 20:46',
+                    },
+                    {
+                        index:'7',
+                        content: '在span的css中加入以下属性即可。是行内元素，要想margin-top生效就要把span转给块级元素才行。在span的css中加入以下属性即可。',
+                        timestamp: '2018-04-12 20:46',
+                    }
+                ]
             }
         },
         mounted() {
@@ -112,14 +177,22 @@
             handleScroll(){
                 let scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
             },
-            loadFinishedTasks() {
+            loadFinishedTasks(evt) {
                 /*console.log(this.$refs.finishedButtonIcon.removeAttribute('class'))
                 this.$refs.finishedButtonIcon.class = "el-icon-arrow-down";*/
                 if (this.$refs.finishedButtonIcon.className === "el-icon-arrow-right") { //显示已完成的任务
                     this.$refs.finishedButtonIcon.setAttribute('class', "el-icon-arrow-down")
+                    this.showFinished = true
                 } else { //不显示已完成的任务
                     this.$refs.finishedButtonIcon.setAttribute('class', "el-icon-arrow-right")
+                    this.showFinished = false
                 }
+
+                let target = evt.target;
+                if(target.nodeName == "SPAN"){
+                    target = evt.target.parentNode;
+                }
+                target.blur();
 
             }
         }
@@ -164,5 +237,6 @@
     .finishedButton {
         margin-top: 20px;
         margin-left: 100px;;
+        margin-bottom: 10px;
     }
 </style>
