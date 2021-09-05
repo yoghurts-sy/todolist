@@ -1,6 +1,7 @@
 package com.geeker.todolist.dao;
 
 import com.geeker.todolist.pojo.User;
+import com.geeker.todolist.pojo.UserTodolist;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -13,4 +14,5 @@ public interface UsersMapper {
     int registerUser(@Param("uEmail") String uEmail,@Param("uPassword") String uPassword);
     int updateUser(@Param("uEmail") String uEmail );
     //int selectIdByEmail(@Param("uEmail") String uEmail);
+     UserTodolist queryUserTodolistById(@Param("uId") int uId );
 }
