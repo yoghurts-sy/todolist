@@ -36,16 +36,53 @@ export default {
   name: "Register",
   components: {Header},
   data() {
-    var validatePass = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error('请输入密码'));
-      } else {
-        if (this.ruleForm.checkPass !== '') {
-          this.$refs.ruleForm.validateField('checkPass');
+
+    const validatePass = (rule, value, callback) => {
+      const PASSOWRD_REG_WEEK = /^[0-9]{6,8}$|^[A-Z]{6,8}$|^[a-z]{6,8}$|^[\W_!@#$%^&*`~()-+=]{6,8}$/;
+// eslint-disable-next-line no-control-regex
+      const PASSOWRD_REG_MIDDLE = /^(?!\d+$)(?![a-zA-Z]+$)[\da-zA-Z]{8,10}$|^(?!\d+$)(?![\x00-\xff]+$)[\d\x00-\xff]{8,10}$|^(?!a-zA-Z+$)(?![\x00-\xff]+$)[a-zA-Z\x00-\xff]{8,10}$/;
+      const PASSOWRD_REG_POWER = /^(?=.*[a-zA-Z])(?=.*[\W_!@#$%^&*`~()-+=])(?=.*\d)[^]{10,16}$|^(?=.*[a-zA-Z])(?=.*[\W_!@#$%^&*`~()-+=])[^]{10,16}$|^(?=.*\d)(?=.*[\W_!@#$%^&*`~()-+=])[^]{10,16}$|^(?=.*[a-zA-Z])(?=.*\d)[^]{10,16}$/;
+
+      if (this.activeName === 'first') {
+        if (value.length < 6 || value.length > 16) {
+          this.$refs.tip.style.display = 'none'
+          callback(new Error('密码位数为6位 ~ 16位'));
+        } else if (value === '') {
+          callback(new Error('请输入新密码'));
+        } else if (PASSOWRD_REG_WEEK.test(value)) {
+          this.$refs.level.innerText = '弱'
+          this.$refs.tip.style.display = 'block'
+          callback();
+        } else if (PASSOWRD_REG_MIDDLE.test(value)) {
+          this.$refs.level.innerText = '中'
+          this.$refs.tip.style.display = 'block'
+          callback();
+        } else if (PASSOWRD_REG_POWER.test(value)) {
+          this.$refs.level.innerText = '强'
+          this.$refs.tip.style.display = 'block'
+          callback();
         }
-        callback();
+      } else {
+        if (value.length < 6 || value.length > 16) {
+          this.$refs.tip2.style.display = 'none'
+          callback(new Error('密码位数为6位 ~ 16位'));
+        } else if (value === '') {
+          callback(new Error('请输入新密码'));
+        } else if (PASSOWRD_REG_WEEK.test(value)) {
+          this.$refs.level2.innerText = '弱'
+          this.$refs.tip2.style.display = 'block'
+          callback();
+        } else if (PASSOWRD_REG_MIDDLE.test(value)) {
+          this.$refs.level2.innerText = '中'
+          this.$refs.tip2.style.display = 'block'
+          callback();
+        } else if (PASSOWRD_REG_POWER.test(value)) {
+          this.$refs.level2.innerText = '强'
+          this.$refs.tip2.style.display = 'block'
+          callback();
+        }
       }
-    };
+    }
     var validatePass2 = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请再次输入密码'));
@@ -62,22 +99,74 @@ export default {
       var reg = new RegExp("^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)+$");
       if( !reg.test(value) ) { callback( new Error("请输入正确的邮箱")); }
       else { callback(); }
-    }
+    };
+    const validatePassword = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请输入密码'));
+      } else {
+        //6-20位包含字符、数字和特殊字符
+        var ls = 0;
+        if (this.ruleForm.password !== '') {
+          if(this.ruleForm.password.match(/([a-z])+/)){
+            ls++;
+          }
+          if(this.ruleForm.password.match(/([0-9])+/)){
+            ls++;
+          }
+          if(this.ruleForm.password.match(/([A-Z])+/)){
+            ls++;
+          }
+          if(this.ruleForm.password.match(/([\W])+/) && !this.ruleForm.password.match(/(![\u4E00-\u9FA5])+/)){                            ls++;
+          }
+          if(this.ruleForm.password.length<6 || this.ruleForm.password.length>20 ){
+            callback(new Error('要求6-20位字符'));
+            ls=0;
+          }
+          if(this.ruleForm.password.match(/([\u4E00-\u9FA5])+/)){
+            callback(new Error('不能包含中文字符'));
+            ls=0;
+          }
+          switch (ls) {
+            case 0: this.passwordPercent = 0;callback(new Error('数字、小写字母、大写字母以及特殊字符中四选三'));break;
+            case 1: this.passwordPercent = 33;callback(new Error('数字、小写字母、大写字母以及特殊字符中四选三'));break;
+            case 2: this.passwordPercent = 66;callback(new Error('数字、小写字母   、大写字母以及特殊字符中四选三'));break;
+            case 3:
+            case 4: this.passwordPercent = 100;break;
+            default: this.passwordPercent = 0;break;
+          }
+        }
+        callback();
+      }
+    };
+    const validateConfirmPassword = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请输入密码'));
+      } else {
+        if (this.ruleForm.password !== this.ruleForm.checkPass ) {
+          callback(new Error('两次输入的密码不一致'));
+          // this.$refs.ruleForm.validateField('checkPass');
+        }
+        callback();
+      }
+    };
+
     return {
       ruleForm: {
       },
+      passwordPercent:0,
+      formLabelWidth: '120px',
       rules: {
         pass: [
-          {validator: validatePass, trigger: 'blur'}
+          {required: true, validator: validatePassword, trigger: ['blur', 'change']}
         ],
         checkPass: [
-          {validator: validatePass2, trigger: 'blur'}
+          {required: true, validator: validatePass2, trigger: 'blur'}
         ],
         email:[
-          {validator: validataEmail, trigger: 'blur'}
+          {required: true, validator: validataEmail, trigger: 'blur'}
         ]
       }
-    };
+    }
   },
   methods: {
     submitForm(formName) {
