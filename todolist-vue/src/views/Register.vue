@@ -85,7 +85,7 @@ export default {
         if (valid) {
           this.$axios.post('/geeker/api/register', this.ruleForm).then(res=>{
             console.log(res.data);
-            if(res.data.msg!="success"){
+            if(res.data.msg !== "success"){
               alert(res.data.msg);
             }else{
               alert("注册成功，即将返回主页");
