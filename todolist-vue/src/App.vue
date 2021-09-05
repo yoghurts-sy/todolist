@@ -6,7 +6,6 @@
 
 <style>
 #app {
-  background: #F8F9FC;
 }
 
 </style>

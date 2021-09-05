@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Index from "../views/Index";
+import Tasks from "../views/Tasks";
 
 Vue.use(VueRouter)
 
@@ -18,6 +19,11 @@ const routes = [
     name: 'Index',
     component: Index
   },
+    {
+        path: '/index',
+        name: 'Index',
+        component: Index
+    },
  {
     path: '/register',
     name: 'register',
@@ -27,6 +33,11 @@ const routes = [
         path: '/usrregis',
         name:'UserRegister',
         component: ()=> import('../views/UserRegister')
+    },
+    {
+        path: '/tasks',
+        name:'Tasks',
+        component: ()=> import('../views/Tasks')
     }
 
 ]

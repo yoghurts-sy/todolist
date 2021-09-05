@@ -7,7 +7,7 @@
 
       <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
         <el-form-item label="邮箱" prop="email" >
-          <el-input type="text" v-model="ruleForm.email" ></el-input>
+          <el-input type="text" v-model="ruleForm.email" autocomplete="off"></el-input>
         </el-form-item>
 
         <el-form-item label="密码" prop="pass">
@@ -55,6 +55,14 @@ export default {
         callback();
       }
     };
+    var validataEmail = (rule, value, callback) => {
+      if (value === '' ) {
+        callback( new Error('请输入邮箱'));
+      }
+      var reg = new RegExp("^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)+$");
+      if( !reg.test(value) ) { callback( new Error("请输入正确的邮箱")); }
+      else { callback(); }
+    }
     return {
       ruleForm: {
       },
@@ -66,7 +74,7 @@ export default {
           {validator: validatePass2, trigger: 'blur'}
         ],
         email:[
-          {}
+          {validator: validataEmail, trigger: 'blur'}
         ]
       }
     };
