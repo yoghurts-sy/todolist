@@ -1,6 +1,6 @@
 /*
-SQLyog Ultimate v12.08 (64 bit)
-MySQL - 8.0.13 : Database - todolist
+SQLyog Ultimate v12.09 (64 bit)
+MySQL - 5.5.40 : Database - todolist
 *********************************************************************
 */
 
@@ -22,15 +22,15 @@ DROP TABLE IF EXISTS `user`;
 
 CREATE TABLE `user` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_email` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `user_password` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `user_token` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `user_email` varchar(64) NOT NULL,
+  `user_password` varchar(64) NOT NULL,
+  `user_token` varchar(64) NOT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 /*Data for the table `user` */
 
-insert  into `user`(`user_id`,`user_email`,`user_password`,`user_token`) values (1,'123@sina.com','123456','123@sina.com?id=1'),(2,'321@qq.com','321123','321@qq.com?id=2'),(3,'final.com','543','final.com?id=12'),(13,'shufan@qq.com','190310','shufan@qq.com?id=13'),(14,'shufan@163.com','123456','shufan@163.com?id=14'),(15,'suyou@163.com','123456','suyou@163.com?id=15'),(16,'1321231@3132.com','123456','a'),(17,'yyq163@163.com','123456','yyq163@163.com?id=17'),(18,'suyouyou@163.com','123456','a'),(19,'suyu@163.com','123456','suyu@163.com?id=19'),(20,'123456789789@qq.com','123456','a');
+insert  into `user`(`user_id`,`user_email`,`user_password`,`user_token`) values (1,'123@sina.com','123456','123@sina.com?id=1'),(2,'321@qq.com','321123','321@qq.com?id=2'),(3,'670918616@sina.com','123456','a'),(4,'123123@sina.com','123123','123123@sina.com?id=4'),(5,'asbdjaskdb@sina.com','123123','a'),(6,'670918616@qq.com','123456','670918616@qq.com?id=6');
 
 /*Table structure for table `user_todolist` */
 
@@ -39,16 +39,16 @@ DROP TABLE IF EXISTS `user_todolist`;
 CREATE TABLE `user_todolist` (
   `task_id` int(11) NOT NULL AUTO_INCREMENT,
   `task_userid` int(11) NOT NULL,
-  `task_content` varchar(60) DEFAULT NULL,
+  `task_content` varchar(128) NOT NULL,
   `task_type` int(11) NOT NULL,
   `task_createtime` datetime DEFAULT NULL,
   `task_finishtime` datetime DEFAULT NULL,
   PRIMARY KEY (`task_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 /*Data for the table `user_todolist` */
 
-insert  into `user_todolist`(`task_id`,`task_userid`,`task_content`,`task_type`,`task_createtime`,`task_finishtime`) values (1,1,'今天早点睡',0,'2021-08-21 15:58:58',NULL),(2,1,'今天少吃点',1,'2021-08-20 15:59:28','2021-08-21 15:59:32');
+insert  into `user_todolist`(`task_id`,`task_userid`,`task_content`,`task_type`,`task_createtime`,`task_finishtime`) values (1,1,'今天早点睡',0,'2021-08-21 15:58:58',NULL),(2,1,'今天少吃点',1,'2021-08-20 15:59:28','2021-08-21 15:59:32'),(3,1,'要把span转给块级元素才行。在span的css中加入以下属性即可。是行内元素',0,'2021-09-06 19:41:40',NULL),(4,1,'要把span转给块级元素才行。在span的css中加入以下属性即可。是行内元素',0,'2021-09-30 19:41:53',NULL),(5,1,'要把span转给块级元素才行。在span的css中加入以下属性即可。是行内元素要把span转给块级元素才行。在span的css中加入以下属性即可。是行内元素',0,'2021-09-03 19:42:16',NULL),(6,1,'要把span转给块级元素才行。在span的css中加入以下属性即可。是行内元素要把span转给块级元素才行。在span的css中加入以下属性即可。是行内元素',0,'2021-09-01 19:43:19',NULL),(7,1,'阿三大苏打大苏打萨达萨达撒旦撒旦撒旦',0,'2021-09-06 19:43:46',NULL),(8,1,'的css中加入以下属性即可。是行内元素，要想margin-to',0,'2021-09-06 19:44:10',NULL),(9,1,'的css中加入以下属性即可。是行内元素，要想margin-to的css中加入以下属性即可。是行内元素，要想margin-to',0,'2021-09-06 19:44:18',NULL),(10,1,'阿三大苏打大苏打萨达萨达撒旦撒旦撒旦',0,'2021-09-06 19:57:32',NULL),(11,1,'阿三大苏打大苏打萨达萨达撒旦撒旦撒旦',0,'2021-09-17 19:57:42',NULL),(12,1,'阿三大苏打大苏打萨达萨达撒旦撒旦撒旦啊实打实的',0,'2021-09-06 19:57:52',NULL),(13,1,'asdsd阿三大苏打大苏打萨达萨达撒旦撒旦撒旦阿三大苏打大苏打萨达萨达撒旦撒旦撒旦',0,'2021-09-06 19:58:01',NULL),(14,1,'阿三大苏打大苏打萨达萨达撒旦撒旦撒旦阿三大苏打大苏打萨达萨达撒旦撒旦撒旦',0,'2021-09-02 19:58:07',NULL),(15,1,'阿三大苏打大苏打萨达萨达撒旦撒旦撒旦阿三大苏打大苏打萨达萨达撒旦撒旦撒旦',0,'2021-09-01 19:58:14',NULL),(16,1,'阿三大苏打大苏打萨达萨达撒旦撒旦撒旦',0,'2021-09-06 20:02:35',NULL),(17,1,'阿三大苏打大苏打萨达萨达撒旦撒旦撒旦',1,'2021-09-08 20:02:43',NULL),(18,1,'阿三大苏打大苏打萨达萨达撒旦撒旦撒旦',0,'2021-09-06 20:02:52',NULL),(19,1,'阿三大苏打大苏打萨达萨达撒旦撒旦撒旦',0,'2021-09-06 20:03:20',NULL),(20,1,'阿三大苏打大苏打萨达萨达撒旦撒旦撒旦',1,'2021-09-06 20:04:30',NULL),(21,1,'阿三大苏打大苏打萨达萨达撒旦撒旦撒旦阿三大苏打大苏打萨达萨达撒旦撒旦撒旦',1,'2021-09-06 20:04:36',NULL),(22,1,'阿三大苏打大苏打萨达萨达撒旦撒旦撒旦阿三大苏打大苏打萨达萨达撒旦撒旦撒旦',1,'2021-09-06 20:04:42',NULL);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
