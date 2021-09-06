@@ -59,10 +59,10 @@ private UsersService usersService;
         }
         return resultInfo;
     }
-
+/*
    @PostMapping("/tasks")//finished
     @ResponseBody
-    public ResultInfo userTask(@RequestBody Map<String, String> map/*HttpServletRequest request*//*@RequestBody String token,@RequestBody String type*/){
+    public ResultInfo userTask(@RequestBody Map<String, String> map){
        String token  = map.get("token");
        String type  = map.get("type");
        System.out.println(token+type);
@@ -82,7 +82,7 @@ private UsersService usersService;
             resultInfo.setMsg("查找失败");
         }
         return resultInfo;
-    }
+    }*/
 
 
 

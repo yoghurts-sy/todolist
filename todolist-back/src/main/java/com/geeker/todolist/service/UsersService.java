@@ -14,6 +14,7 @@ import utils.nullOrNot;
 
 
 import java.io.IOException;
+import java.util.List;
 
 
 @Service
@@ -39,8 +40,8 @@ private UsersMapper usersMapper;
         User user1 = usersMapper.queryUserByEmail(Email);
         return buildUserInfo(user1);
     }
-    public UserTask userTodolist(Integer userID, Integer type){
-     UserTask userTask =usersMapper.queryUserTodolistById(userID,type);
+    public List<UserTask> userTodolist(Integer userID, Integer type){
+     List<UserTask> userTask =usersMapper.queryUserTodolistById(userID,type);
      nullOrNot.istrue(userTask ==null,"未找到您的任务");//判断是否存在task
      return userTask;
     }
