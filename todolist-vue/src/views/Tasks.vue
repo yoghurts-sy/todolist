@@ -8,14 +8,14 @@
                         <i class="el-icon-check" ref="icons" style="color: white"></i>
                     </el-button>
                     <div class="task-content">
-                        {{item.content}}
+                        {{item.task_content}}
                     </div>
                     <el-dropdown class="moreButton">
                           <span class="el-dropdown-link">
                             <i class="el-icon-more"></i>
                           </span>
                         <el-dropdown-menu slot="dropdown">
-                            <el-dropdown-item>黄金糕</el-dropdown-item>
+                            <el-dropdown-item>创建时间:{{item.task_createtime}}</el-dropdown-item>
                             <el-dropdown-item divided>狮子头</el-dropdown-item>
                             <el-dropdown-item divided>螺蛳粉</el-dropdown-item>
                             <el-dropdown-item divided>蚵仔煎</el-dropdown-item>
@@ -35,14 +35,14 @@
                         <i class="el-icon-check" ref="icons" style="color: green"></i>
                     </el-button>
                     <div class="task-content" style="text-decoration: line-through;">
-                        {{item.content}}
+                        {{item.task_content}}
                     </div>
                     <el-dropdown class="moreButton">
                           <span class="el-dropdown-link">
                             <i class="el-icon-more"></i>
                           </span>
                         <el-dropdown-menu slot="dropdown">
-                            <el-dropdown-item>黄金糕</el-dropdown-item>
+                            <el-dropdown-item>创建时间:{{item.task_createtime}}</el-dropdown-item>
                             <el-dropdown-item divided>狮子头</el-dropdown-item>
                             <el-dropdown-item divided>螺蛳粉</el-dropdown-item>
                             <el-dropdown-item divided>蚵仔煎</el-dropdown-item>
@@ -66,176 +66,37 @@
                 tasksCount:0,
                 finishedTasksCount:24,
                 showFinished:false,
-                tasks: [
-                    {
-                    index:'0',
-                    content: '要把span转给块级元素才行。在span的css中加入以下属性即可。是行内元素，span只有margin-left和margin-right才有效果。要想margin-top生效就要把span转给块级元素才行。在span的css中加入以下属性即可。',
-                    timestamp: '2018-04-12 20:46',
-                }, {
-                    index:'1',
-                    content: '支持自定义颜色',
-                    timestamp: '2018-04-03 20:46',
-                }, {
-                    index:'2',
-                    content: '支持自定义尺寸',
-                    timestamp: '2018-04-03 20:46',
-                }, {
-                    index:'3',
-                    content: '默认样式的节点',
-                    timestamp: '2018-04-03 20:46',
-                }, {
-                    index:'4',
-                    content: '在做页面设计常会碰到css的float父div没有高度的情况，HTML代码设计',
-                    timestamp: '2018-04-03 20:46',
-                }, {
-                    index:'5',
-                    content: '在做页面设计常会碰到css的float父div没有高度的情况，HTML代码设计在做页面设计常会碰到css的float父div没有高度的情况，HTML代码设计',
-                    timestamp: '2018-04-03 20:46',
-                }, {
-                    index:'6',
-                    content: '在做页面设计常会碰到css的float父div没有高度的',
-                    timestamp: '2018-04-03 20:46',
-                }, {
-                    index:'7',
-                    content: ' 如下所示,子元素 div2 本身具有高度和宽度,但由于其具有float:left;属性后。其父元素 div1 不具有高度。',
-                    timestamp: '2018-04-03 20:46',
-                }, {
-                    index:'8',
-                    content: '默认样式的节点',
-                    timestamp: '2018-04-03 20:46',
-                }, {
-                    index:'9',
-                    content: '在做页面设计常会碰到css的float父div没有高度的',
-                    timestamp: '2018-04-03 20:46',
-                }, {
-                    index:'10',
-                    content: ' 如下所示,子元素 div2 本身具有高度和宽度,但由于其具有float:left;属性后。其父元素 div1 不具有高度。',
-                    timestamp: '2018-04-03 20:46',
-                }, {
-                    index:'11',
-                    content: '默认样式的节点',
-                    timestamp: '2018-04-03 20:46',
-                }, {
-                        index:'12',
-                        content: '默认样式的节点',
-                        timestamp: '2018-04-03 20:46',
-                    }, {
-                        index:'13',
-                        content: '在做页面设计常会碰到css的float父div没有高度的',
-                        timestamp: '2018-04-03 20:46',
-                    }, {
-                        index:'14',
-                        content: ' 如下所示,子元素 div2 本身具有高度和宽度,但由于其具有float:left;属性后。其父元素 div1 不具有高度。',
-                        timestamp: '2018-04-03 20:46',
-                    }, {
-                        index:'15',
-                        content: '默认样式的节点',
-                        timestamp: '2018-04-03 20:46',
-                    },
-                    {
-                        index:'16',
-                        content: '默认样式的节点',
-                        timestamp: '2018-04-03 20:46',
-                    }, {
-                        index:'17',
-                        content: '在做页面设计常会碰到css的float父div没有高度的',
-                        timestamp: '2018-04-03 20:46',
-                    }, {
-                        index:'18',
-                        content: ' 如下所示,子元素 div2 本身具有高度和宽度,但由于其具有float:left;属性后。其父元素 div1 不具有高度。',
-                        timestamp: '2018-04-03 20:46',
-                    }, {
-                        index:'19',
-                        content: '默认样式的节点',
-                        timestamp: '2018-04-03 20:46',
-                    }, {
-                        index:'20',
-                        content: '默认样式的节点',
-                        timestamp: '2018-04-03 20:46',
-                    }, {
-                        index:'21',
-                        content: '在做页面设计常会碰到css的float父div没有高度的',
-                        timestamp: '2018-04-03 20:46',
-                    }, {
-                        index:'22',
-                        content: ' 如下所示,子元素 div2 本身具有高度和宽度,但由于其具有float:left;属性后。其父元素 div1 不具有高度。',
-                        timestamp: '2018-04-03 20:46',
-                    }, {
-                        index:'23',
-                        content: '默认样式的节点',
-                        timestamp: '2018-04-03 20:46',
-                    },
-                    {
-                        index:'24',
-                        content: '默认样式的节点',
-                        timestamp: '2018-04-03 20:46',
-                    }, {
-                        index:'25',
-                        content: '在做页面设计常会碰到css的float父div没有高度的',
-                        timestamp: '2018-04-03 20:46',
-                    }, {
-                        index:'26',
-                        content: ' 如下所示,子元素 div2 本身具有高度和宽度,但由于其具有float:left;属性后。其父元素 div1 不具有高度。',
-                        timestamp: '2018-04-03 20:46',
-                    }, {
-                        index:'27',
-                        content: '默认样式的节点',
-                        timestamp: '2018-04-03 20:46',
-                    }
-                ],
-                finishedTasks:[
-                    {
-                        index:'0',
-                        content: '要把span转给块级元素才行。在span的css中加入以下属性即可。是行内元素，span只有margin-left和margin-right才有效果。要想margin-top生效就要把span转给块级元素才行。在span的css中加入以下属性即可。',
-                        timestamp: '2018-04-12 20:46',
-                    },
-                    {
-                        index:'1',
-                        content: '要把span转给块级元素才行。在span的css中加入以下属性即可。是行内元素，span只有margin-left和margin-right才有效果。要想margin-top生效就要把span转给块级元素才行。在span的css中加入以下属性即可。',
-                        timestamp: '2018-04-12 20:46',
-                    },{
-                        index:'2',
-                        content: '在span的css中加入以下属性即可。是行内元素，要想margin-top生效就要把span转给块级元素才行。在span的css中加入以下属性即可。',
-                        timestamp: '2018-04-12 20:46',
-                    },
-                    {
-                        index:'3',
-                        content: '在span的css中加入以下属性即可。是行内元素，要想margin-top生效就要把span转给块级元素才行。在span的css中加入以下属性即可。',
-                        timestamp: '2018-04-12 20:46',
-                    },
-                    {
-                        index:'4',
-                        content: '在span的css中加入以下属性即可。是行内元素，要想margin-top生效就要把span转给块级元素才行。在span的css中加入以下属性即可。',
-                        timestamp: '2018-04-12 20:46',
-                    },
-                    {
-                        index:'5',
-                        content: '在span的css中加入以下属性即可。是行内元素，要想margin-top生效就要把span转给块级元素才行。在span的css中加入以下属性即可。',
-                        timestamp: '2018-04-12 20:46',
-                    },
-                    {
-                        index:'6',
-                        content: '在span的css中加入以下属性即可。是行内元素，要想margin-top生效就要把span转给块级元素才行。在span的css中加入以下属性即可。',
-                        timestamp: '2018-04-12 20:46',
-                    },
-                    {
-                        index:'7',
-                        content: '在span的css中加入以下属性即可。是行内元素，要想margin-top生效就要把span转给块级元素才行。在span的css中加入以下属性即可。',
-                        timestamp: '2018-04-12 20:46',
-                    }
-                ],
+                tasks: {},
+                finishedTasks:{},
                 boxCardsWidth:0
             }
         },
         mounted() {
-            window.addEventListener('scroll',this.handleScroll,true);
-            setTimeout(()=> {
-                //code
-                this.boxCardsWidth = this.$refs.boxCards['0'].$el.clientWidth;
-            }, 1000);
+            if (this.$store.state.user.token === '') {
+                this.$router.push("/login")
+            } else {
+                window.addEventListener('scroll',this.handleScroll,true);
+                    setTimeout(()=> {
+                        //code
+                        this.boxCardsWidth = this.$refs.boxCards['0'].$el.clientWidth;
+                    }, 1000);
+            }
         },
-        updated() {
-
+        created() {
+            if (this.$store.state.user.token === '') {
+                this.$router.push("/login")
+            } else {
+                console.log(this.$store.state.user.token)
+                let param = new FormData;
+                param.append("token",this.$store.state.user.token)
+                this.$axios.post("/geeker/api/tasks",param).then(res=>{
+                    console.log(res.data)
+                    this.tasks = res.data.result
+                })
+                this.$axios.post("/geeker/api/finished",param).then(res=> {
+                    this.finishedTasks = res.data.result
+                })
+            }
         }
         ,
         methods:{
@@ -252,7 +113,6 @@
             },
             handleScroll(){
                 let scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
-                console.log("scrollTop:"+scrollTop)
                 let length = this.tasks.length
                 if (scrollTop <= 10) {
                     for (let i = 0; i < length; i++) {
@@ -273,10 +133,10 @@
                         break
                     }
                 }
-                console.log("opacity:"+opacity)
-                console.log("index:"+index)
+               /* console.log("opacity:"+opacity)
+                console.log("index:"+index)*/
                 let currentWidth = this.$refs.boxCards[index].$el.clientWidth;
-                console.log(currentWidth + " <--> "+ this.boxCardsWidth)
+                /*console.log(currentWidth + " <--> "+ this.boxCardsWidth)*/
                 this.$refs.boxCards[index].$el.style.opacity = opacity + "%"
                 if (currentWidth === this.boxCardsWidth) {
                     let out =  currentWidth - 15

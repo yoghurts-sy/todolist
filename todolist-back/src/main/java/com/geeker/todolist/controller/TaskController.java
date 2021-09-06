@@ -20,7 +20,7 @@ public class TaskController {
     @PostMapping("/tasks")//finished
     @ResponseBody
     public ResultInfo userTask(@RequestParam("token") String token){
-        //System.out.println(token);
+        System.out.println(token);
         ResultInfo resultInfo = new ResultInfo();
         String[] split = token.split("=");
         String tokenId=split[1];

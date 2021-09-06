@@ -98,6 +98,7 @@ export default {
               this.$router.push({name: "Tasks"});
               this.$store.state.isLogin = true;
               this.$store.state.user.email = this.ruleForm.email;
+              this.$store.state.user.token = res.data.result.userToken
             }
           })
           console.log(this.ruleForm);
