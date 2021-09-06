@@ -4,7 +4,7 @@ import com.geeker.todolist.dao.UsersMapper;
 import com.geeker.todolist.entity.UserModel;
 import com.geeker.todolist.pojo.User;
 
-import com.geeker.todolist.pojo.UserTodolist;
+import com.geeker.todolist.pojo.UserTask;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
@@ -39,10 +39,10 @@ private UsersMapper usersMapper;
         User user1 = usersMapper.queryUserByEmail(Email);
         return buildUserInfo(user1);
     }
-    public UserTodolist userTodolist(int userID){
-     UserTodolist userTodolist=usersMapper.queryUserTodolistById(userID);
-     nullOrNot.istrue(userTodolist==null,"未找到您的task");//判断是否存在task
-     return userTodolist;
+    public UserTask userTodolist(Integer userID, Integer type){
+     UserTask userTask =usersMapper.queryUserTodolistById(userID,type);
+     nullOrNot.istrue(userTask ==null,"未找到您的任务");//判断是否存在task
+     return userTask;
     }
     private UserModel buildUserInfo(User user) {
         UserModel userModel=new UserModel();

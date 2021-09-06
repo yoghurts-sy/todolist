@@ -2,7 +2,7 @@ package com.geeker.todolist.controller;
 
 import com.geeker.todolist.common.dto.LoginDto;
 import com.geeker.todolist.entity.UserModel;
-import com.geeker.todolist.pojo.User;
+import com.geeker.todolist.pojo.UserTask;
 import com.geeker.todolist.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import utils.ParamsException;
 import utils.ResultInfo;
 
-import javax.annotation.Resource;
-import javax.annotation.Resources;
+import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/geeker/api")
@@ -59,6 +59,31 @@ private UsersService usersService;
         }
         return resultInfo;
     }
+
+   @PostMapping("/tasks")//finished
+    @ResponseBody
+    public ResultInfo userTask(@RequestBody Map<String, String> map/*HttpServletRequest request*//*@RequestBody String token,@RequestBody String type*/){
+       String token  = map.get("token");
+       String type  = map.get("type");
+       System.out.println(token+type);
+        ResultInfo resultInfo = new ResultInfo();
+        String[] split = token.split("=");
+        String tokenId=split[1];
+        Integer id = Integer.parseInt(tokenId);
+        try{
+            UserTask userTask = usersService.userTodolist(id,Integer.parseInt(type));
+            resultInfo.setResult(userTask);
+        }catch(ParamsException p){
+            resultInfo.setCode(p.getCode());
+            resultInfo.setMsg(p.getMsg());
+            p.printStackTrace();
+        }catch (Exception e){
+            resultInfo.setCode(500);
+            resultInfo.setMsg("查找失败");
+        }
+        return resultInfo;
+    }
+
 
 
 
