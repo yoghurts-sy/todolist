@@ -14,5 +14,5 @@ public interface UsersMapper {
     int registerUser(@Param("uEmail") String uEmail,@Param("uPassword") String uPassword);
     int updateUser(@Param("uEmail") String uEmail );
     //int selectIdByEmail(@Param("uEmail") String uEmail);
-     UserTask queryUserTodolistById(@Param("task_userid") Integer task_userid , @Param("task_type") Integer task_type );
+     List<UserTask> queryUserTodolistById(@Param("task_userid") Integer task_userid , @Param("task_type") Integer task_type );
 }
