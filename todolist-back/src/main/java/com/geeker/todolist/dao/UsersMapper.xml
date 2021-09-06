@@ -17,7 +17,7 @@
         update user set user_token=concat(user_email,'?id=',cast(user_id AS char)) where user_email=#{uEmail}
     </update>
 
-    <select id="queryUserTodolistById" parameterType="com.geeker.todolist.pojo.User">
-        SELECT task_id,task_userid,task_content,task_type,task_createtime,task_finishtime FROM user_todolist,USER WHERE task_userid=#{user_id}
+    <select id="queryUserTodolistById" resultType="com.geeker.todolist.pojo.UserTask">
+    select * from user_todolist where task_userid=#{task_userid} and task_type=#{task_type}
     </select>
 </mapper>
