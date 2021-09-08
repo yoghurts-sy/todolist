@@ -79,14 +79,16 @@
                     setTimeout(()=> {
                         //code
                         this.boxCardsWidth = this.$refs.boxCards['0'].$el.clientWidth;
-                    }, 1000);
+                    }, 500);
             }
         },
         created() {
+          this.$store.commit("SET_TOKEN", localStorage.getItem("userToken"));
             if (this.$store.state.user.token === '') {
                 this.$router.push("/login")
             } else {
-                console.log(this.$store.state.user.token)
+              this.$store.commit("LOGIN");
+                console.log(this.$store.state.user.token);
                 let param = new FormData;
                 param.append("token",this.$store.state.user.token)
                 this.$axios.post("/geeker/api/tasks",param).then(res=>{
@@ -97,9 +99,15 @@
                     this.finishedTasks = res.data.result
                 })
             }
-        }
-        ,
-        methods:{
+        },
+      beforeUpdate() {
+        if( !this.$store.state.isLogin ) {
+            this.tasks = {};
+            alert("请登录后再试");
+            this.$router.push({name:"Login"});
+          }
+      },
+      methods:{
             hoverButton(index) {
                 this.$refs.icons[index].style.color = "green";
             },
@@ -136,7 +144,7 @@
                /* console.log("opacity:"+opacity)
                 console.log("index:"+index)*/
                 let currentWidth = this.$refs.boxCards[index].$el.clientWidth;
-                /*console.log(currentWidth + " <--> "+ this.boxCardsWidth)*/
+              /*console.log(currentWidth + " <--> "+ this.boxCardsWidth)*/
                 this.$refs.boxCards[index].$el.style.opacity = opacity + "%"
                 if (currentWidth === this.boxCardsWidth) {
                     let out =  currentWidth - 15

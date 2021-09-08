@@ -8,12 +8,22 @@ export default new Vuex.Store({
     isLogin:false,
     user:{
       email:"",
-      token:""
+      token:"",
     }
   },
   mutations: {
-    SET_TOKEN() {
-      
+    SET_TOKEN(state, token) {
+      state.user.token = token;
+    },
+    SET_EMAIL(state, email){
+      state.user.email = email;
+    },
+    LOGIN(state){
+      state.isLogin = true;
+    },
+    QUIT(state){
+      state.isLogin = false;
+      localStorage.clear();
     }
   },
   actions: {
