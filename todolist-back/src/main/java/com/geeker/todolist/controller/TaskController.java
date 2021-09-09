@@ -59,4 +59,94 @@ public class TaskController {
         }
         return resultInfo;
     }
+
+
+    @PostMapping("/update")
+    @ResponseBody
+    public ResultInfo updateTaskTye(@RequestParam("token") String token,@RequestParam("task_id") Integer task_id){
+        ResultInfo resultInfo = new ResultInfo();
+        String[] split = token.split("=");
+        String tokenId=split[1];
+        Integer id = Integer.parseInt(tokenId);
+       // System.out.println(task_id);
+        try{
+            UserTask userTask=usersService.updateTaskType(id,task_id);
+            resultInfo.setResult(userTask);
+        }catch (ParamsException p){
+            resultInfo.setCode(p.getCode());
+            resultInfo.setMsg(p.getMsg());
+            p.printStackTrace();
+        }catch (Exception e){
+            resultInfo.setCode(500);
+            resultInfo.setMsg("信息更新失败");
+        }
+        return  resultInfo;
+    }
+
+    @PostMapping("/insertTask")
+    @ResponseBody
+    public ResultInfo insertTask(@RequestParam("token") String token,@RequestParam("task_content") String task_content){
+        ResultInfo resultInfo = new ResultInfo();
+        String[] split = token.split("=");
+        String tokenId=split[1];
+        Integer id = Integer.parseInt(tokenId);
+        try{
+            List<UserTask> userTask=usersService.insertTask(id,task_content);
+            System.out.println("6666666666");
+            resultInfo.setResult(userTask);
+        }catch (ParamsException p){
+            resultInfo.setCode(p.getCode());
+            resultInfo.setMsg(p.getMsg());
+            p.printStackTrace();
+        }catch (Exception e){
+            resultInfo.setCode(500);
+            resultInfo.setMsg("任务添加失败");
+        }
+        return  resultInfo;
+    }
+
+    @PostMapping("/updateTask")
+    @ResponseBody
+    public  ResultInfo updateTask(@RequestParam("token") String token,@RequestParam("task_id") Integer task_id,@RequestParam("task_content") String task_content){
+        ResultInfo resultInfo = new ResultInfo();
+        String[] split = token.split("=");
+        String tokenId=split[1];
+        Integer id = Integer.parseInt(tokenId);
+        try{
+            UserTask userTask=usersService.updateTask(id,task_id,task_content);
+            resultInfo.setResult(userTask);
+        }catch (ParamsException p){
+            resultInfo.setCode(p.getCode());
+            resultInfo.setMsg(p.getMsg());
+            p.printStackTrace();
+        }catch (Exception e){
+            e.printStackTrace();
+            resultInfo.setCode(500);
+            resultInfo.setMsg("任务更新失败");
+        }
+        return  resultInfo;
+    }
+
+    @PostMapping("/deleteTask")
+    @ResponseBody
+    public ResultInfo deleteTask(@RequestParam("token") String token,@RequestParam("task_id") Integer task_id){
+        ResultInfo resultInfo=new ResultInfo();
+        String[] split = token.split("=");
+        String tokenId=split[1];
+        Integer id = Integer.parseInt(tokenId);
+        try{
+            String result=usersService.deleteTask(id,task_id);
+            resultInfo.setResult(result);
+        }catch (ParamsException p){
+            resultInfo.setCode(p.getCode());
+            resultInfo.setMsg(p.getMsg());
+            p.printStackTrace();
+        }catch (Exception e){
+            resultInfo.setCode(500);
+            resultInfo.setMsg("任务删除失败");
+            e.printStackTrace();
+        }
+        return  resultInfo;
+    }
+
 }
