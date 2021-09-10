@@ -89,7 +89,6 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           console.log(this.ruleForm);
-
           this.$axios.post("/geeker/api/login", this.ruleForm).then(res=> {
             console.log(res.data);
             if (res.data.msg != "success") {
@@ -98,7 +97,9 @@ export default {
               this.$router.push({name: "Tasks"});
               this.$store.state.isLogin = true;
               this.$store.state.user.email = this.ruleForm.email;
-              this.$store.state.user.token = res.data.result.userToken
+              this.$store.commit("SET_TOKEN", res.data.result.userToken );
+              localStorage.setItem("userToken", res.data.result.userToken);
+              localStorage.setItem("email", this.ruleForm.email);
             }
           })
           console.log(this.ruleForm);
