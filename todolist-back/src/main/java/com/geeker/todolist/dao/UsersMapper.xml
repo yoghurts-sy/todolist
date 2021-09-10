@@ -20,4 +20,20 @@
     <select id="queryUserTodolistById" resultType="com.geeker.todolist.pojo.UserTask">
     select * from user_todolist where task_userid=#{task_userid} and task_type=#{task_type}
     </select>
+    
+    <update id="updateTaskType" parameterType="com.geeker.todolist.pojo.UserTask">
+        update user_todolist set task_type=1,task_finishtime=now() where task_userid=#{task_userid} and task_id=#{taskId}
+    </update>
+    <select id="queryTask" resultType="com.geeker.todolist.pojo.UserTask">
+        select * from user_todolist where task_userid=#{task_userid} and task_id=#{taskId}
+    </select>
+    <insert id="insertTask" parameterType="com.geeker.todolist.pojo.UserTask" statementType="PREPARED" keyProperty="task_id">
+        insert into user_todolist(task_userid, task_content, task_type, task_createtime,task_finishtime) values (#{task_userid},#{task_content},0,now(),null)
+    </insert>
+    <update id="updateTask" >
+        update user_todolist set task_content=#{task_content} where task_userid=#{task_userid} and task_id=#{taskId}
+    </update>
+    <delete id="deleteTask" parameterType="com.geeker.todolist.pojo.UserTask" statementType="PREPARED">
+        delete from user_todolist where task_userid=#{task_userid} and task_id=#{taskId}
+    </delete>
 </mapper>
