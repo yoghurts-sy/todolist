@@ -20,6 +20,11 @@ import java.util.List;
 @Service
 public class UsersService {
 
+
+    /**
+     * 把UsersService 和 TasksService分开，同时写成接口和实现类的方式。
+     */
+
     @Autowired
 private UsersMapper usersMapper;
   //  @Transactional(rollbackFor = Exception.class)
@@ -48,10 +53,13 @@ private UsersMapper usersMapper;
      return userTask;
     }
 
-
+    /**
+     * 根据接收
+     *
+     */
     public UserTask updateTaskType(Integer task_userid,Integer task_id){
-        UserTask userTask =usersMapper.queryTask(task_userid,task_id);
-        nullOrNot.istrue(userTask ==null,"该任务不存在");
+        UserTask userTask = usersMapper.queryTask(task_userid,task_id);
+        nullOrNot.istrue(userTask == null,"该任务不存在");
         usersMapper.updateTaskType(task_userid,task_id);
         UserTask userTask1 =usersMapper.queryTask(task_userid,task_id);
         return userTask1;

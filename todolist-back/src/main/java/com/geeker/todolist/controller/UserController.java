@@ -47,7 +47,7 @@ private UsersService usersService;
         String email = user.getEmail();
         String password = user.getPassword();
         try{
-            UserModel userModel=usersService.userRegister(email,password);
+            UserModel userModel = usersService.userRegister(email,password);
             resultInfo.setResult(userModel);
         }catch (ParamsException p){
             resultInfo.setCode(p.getCode());
@@ -59,35 +59,4 @@ private UsersService usersService;
         }
         return resultInfo;
     }
-/*
-   @PostMapping("/tasks")//finished
-    @ResponseBody
-    public ResultInfo userTask(@RequestBody Map<String, String> map){
-       String token  = map.get("token");
-       String type  = map.get("type");
-       System.out.println(token+type);
-        ResultInfo resultInfo = new ResultInfo();
-        String[] split = token.split("=");
-        String tokenId=split[1];
-        Integer id = Integer.parseInt(tokenId);
-        try{
-            UserTask userTask = usersService.userTodolist(id,Integer.parseInt(type));
-            resultInfo.setResult(userTask);
-        }catch(ParamsException p){
-            resultInfo.setCode(p.getCode());
-            resultInfo.setMsg(p.getMsg());
-            p.printStackTrace();
-        }catch (Exception e){
-            resultInfo.setCode(500);
-            resultInfo.setMsg("查找失败");
-        }
-        return resultInfo;
-    }*/
-
-
-
-
-    /*
-    feature 1: 调用数据库，完成后端登录逻辑的验证
-     */
 }

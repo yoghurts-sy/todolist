@@ -1,9 +1,8 @@
 package com.geeker.todolist.pojo;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 @Data
 public class UserTask {
    private Integer task_id;
@@ -11,8 +10,10 @@ public class UserTask {
    private Integer task_type;
    private String task_content;
 
-   @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
    private LocalDateTime task_createtime;
+
+   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
    private LocalDateTime task_finishtime;
 
 }
