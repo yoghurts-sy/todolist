@@ -4,7 +4,7 @@
         <el-menu :default-active="activeIndex" class="el-menu-demo" :style="bgColor" mode="horizontal" @select="handleSelect"
                  text-color="#646464"
                  active-text-color="#2F55D4">
-            <el-button type="text" class="head-tag" @click="toIndex"><img src="../assets/geeker-logo.png"/><span>Geerker</span></el-button>
+            <el-button type="text" class="head-tag" @click="toIndex"><img src="../assets/geeker-logo.png"/><span>Geeker</span></el-button>
             <el-menu-item index="1" id="item-1" @click="toIndex">主页</el-menu-item>
             <el-menu-item index="2" id="item-2">我的任务</el-menu-item>
             <el-submenu index="3" id="item-3">
