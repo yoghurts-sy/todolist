@@ -4,7 +4,7 @@
         <div class="tasks-container">
             <el-card class="box-card" v-for="(item,id) in tasks" :key="id" ref="boxCards">
                 <div class="task-item">
-                    <el-button size="mini" class="finishButton" circle @mouseover.native="hoverButton(item.index)" @mouseleave.native="leaveButton(item.index)" @click="clickButton(item.index)">
+                    <el-button size="mini" class="finishButton" circle @mouseover.native="hoverButton(id)" @mouseleave.native="leaveButton(id)" @click="clickButton(item.index)">
                         <i class="el-icon-check" ref="icons" style="color: white"></i>
                     </el-button>
                     <div class="task-content">
@@ -15,10 +15,9 @@
                             <i class="el-icon-more"></i>
                           </span>
                         <el-dropdown-menu slot="dropdown">
-                            <el-dropdown-item>创建时间:{{item.task_createtime}}</el-dropdown-item>
-                            <el-dropdown-item divided>狮子头</el-dropdown-item>
-                            <el-dropdown-item divided>螺蛳粉</el-dropdown-item>
-                            <el-dropdown-item divided>蚵仔煎</el-dropdown-item>
+                            <el-dropdown-item disabled>创建  <i class="el-icon-date"></i>{{item.task_createtime}}</el-dropdown-item>
+                            <el-dropdown-item divided>修改  <i class="el-icon-edit" style="color: blue"></i></el-dropdown-item>
+                            <el-dropdown-item divided>删除  <i class="el-icon-delete" style="color: red"></i></el-dropdown-item>
                         </el-dropdown-menu>
                     </el-dropdown>
                     <!--<el-link icon="el-icon-more" class="moreButton"  :underline="false"></el-link>-->
@@ -42,10 +41,11 @@
                             <i class="el-icon-more"></i>
                           </span>
                         <el-dropdown-menu slot="dropdown">
-                            <el-dropdown-item>创建时间:{{item.task_createtime}}</el-dropdown-item>
-                            <el-dropdown-item divided>狮子头</el-dropdown-item>
-                            <el-dropdown-item divided>螺蛳粉</el-dropdown-item>
-                            <el-dropdown-item divided>蚵仔煎</el-dropdown-item>
+                            <el-dropdown-item >创建  <i class="el-icon-date" ></i>{{item.task_createtime}}</el-dropdown-item>
+                            <el-dropdown-item divided>完成  <i class="el-icon-date"></i>{{item.task_finishtime}}</el-dropdown-item>
+                            <el-dropdown-item divided>还原未完成  <i class="el-icon-refresh" style="color: green"></i></el-dropdown-item>
+                            <el-dropdown-item divided>修改  <i class="el-icon-edit" style="color: blue"></i></el-dropdown-item>
+                            <el-dropdown-item divided>删除  <i class="el-icon-delete" style="color: red"></i></el-dropdown-item>
                         </el-dropdown-menu>
                     </el-dropdown>
                     <!--<el-link icon="el-icon-more" class="moreButton"  :underline="false"></el-link>-->
@@ -53,6 +53,7 @@
             </el-card>
         </div>
         <el-backtop></el-backtop>
+        <el-button class="addTaskButton" type="primary" circle size="medium"><i class="el-icon-edit"></i></el-button>
     </div>
 </template>
 
@@ -72,6 +73,7 @@
             }
         },
         mounted() {
+            console.log("mounted")
             if (this.$store.state.user.token === '') {
                 this.$router.push("/login")
             } else {
@@ -79,13 +81,7 @@
                     setTimeout(()=> {
                         //code
                         this.boxCardsWidth = this.$refs.boxCards['0'].$el.clientWidth;
-                    }, 1000);
-            }
-        },
-        created() {
-            if (this.$store.state.user.token === '') {
-                this.$router.push("/login")
-            } else {
+                    }, 500);
                 console.log(this.$store.state.user.token)
                 let param = new FormData;
                 param.append("token",this.$store.state.user.token)
@@ -97,8 +93,13 @@
                     this.finishedTasks = res.data.result
                 })
             }
-        }
-        ,
+        },
+        created() {
+            console.log("created")
+            if (this.$store.state.user.token === '') {
+                this.$router.push("/login")
+            }
+        },
         methods:{
             hoverButton(index) {
                 this.$refs.icons[index].style.color = "green";
@@ -112,6 +113,7 @@
 
             },
             handleScroll(){
+                /*if (this.$refs.boxCards === undefined || this.$refs.boxCards.length === 0) return;*/
                 let scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
                 let length = this.tasks.length
                 if (scrollTop <= 10) {
@@ -218,5 +220,14 @@
         margin-top: 20px;
         margin-left: 100px;;
         margin-bottom: 10px;
+    }
+    .addTaskButton { /*定位need to 修改*/
+
+        z-index: 100;
+        position: fixed;
+        top: 120px;
+        right: 510px;
+        height: 40px;
+        width: 40px;
     }
 </style>
