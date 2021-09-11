@@ -81,7 +81,7 @@
         },
         methods:{
             handleSelect(key, keyPath) {
-                console.log(key);
+                //console.log(key);
                 switch (key) {
                     case "2":
                         this.$router.push("/tasks")
