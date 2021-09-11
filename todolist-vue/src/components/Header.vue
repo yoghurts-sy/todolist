@@ -65,8 +65,20 @@
                         break;
                 }
             }
-        }
-        ,
+          let token = localStorage.getItem("userToken");
+            let email = localStorage.getItem("email");
+            let param = new FormData;
+            param.append("token", token);
+            if( token ) {
+              this.$axios.post("/geeker/api/tasks", param).then(res=>{
+                if(res.data.msg==="success") {
+                  this.$store.commit("LOGIN");
+                  this.$store.commit("SET_EMAIL", email);
+                  this.$store.commit("SET_TOKEN", token);
+                }
+              })
+            }
+        },
         methods:{
             handleSelect(key, keyPath) {
                 console.log(key);
@@ -83,7 +95,8 @@
                 router.push({name:'Index'});
             },
               quit(){
-                this.$store.state.isLogin = false;
+                this.$store.commit("QUIT");
+                this.$router.push({name:"Index"});
               },
             handleScroll(){
                 let scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
@@ -92,7 +105,7 @@
                 } else {
                     this.bgColor = ""
                 }
-            }
+            },
 
         }
     }
