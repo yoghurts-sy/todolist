@@ -1,8 +1,8 @@
 <template>
   <div>
     <Header class="header"></Header>
-    <div class="tasks-container">
-      <el-card class="box-card" v-for="(item,id) in tasks" :key="item.task_id" ref="boxCards">
+    <div class="tasks-container" :key="refresh">
+      <el-card class="box-card" v-for="(item,id) in tasks" :key="'taskId-'+item.task_id" ref="boxCards">
         <div class="task-item">
           <el-button size="mini" class="finishButton" circle @mouseover.native="hoverButton(id)"
                      @mouseleave.native="leaveButton(id)" @click="changeTaskStatus(item.task_id, item.task_type)">
@@ -36,15 +36,15 @@
 
       <el-button class="finishedButton" v-if="showAddTask" size="mini" @click="loadFinishedTasks"><i class="el-icon-arrow-right" ref="finishedButtonIcon"></i> 已完成
         <span style="color:#ACB0AE">
-                    {{ finishedTasks.length }}
+                    {{ finishedTasksCount }}
                 </span>
       </el-button>
       <el-button class="finishedButton" v-if="showAddTask" size="mini" @click="addTaskButtonEvt"><i class="el-icon-s-flag"></i> 添加任务
       </el-button>
-      <el-card class="box-card" v-if="showFinished" v-for="(item, id) in finishedTasks" :key="item.task_id">
+      <el-card class="box-card" v-show="showFinished" v-for="(item, id) in finishedTasks" :key="item.task_id+'-only'">
         <div class="task-item">
           <el-button size="mini" class="finishButton" circle @click="changeTaskStatus(item.task_id, item.task_type)">
-            <i class="el-icon-check" ref="icons" style="color: green"></i>
+            <i class="el-icon-check" style="color: green"></i>
           </el-button>
           <div class="task-content" style="text-decoration: line-through;">
             {{ item.task_content }}
@@ -81,17 +81,20 @@ export default {
     data() {
       return {
         tasksCount: 0,
-        finishedTasksCount: 24,
+        refresh: -1,
+        finishedTasksCount: 0,
         showFinished: false,
         tasks: {},
         finishedTasks: {},
         boxCardsWidth: 0,
         new_task: "",
-        showAddTask:true
+        showAddTask:true,
+        expressions:[
+          '🎉', '🍜', '✨', '😀', '🍕'
+        ]
       }
     },
     mounted() {
-      console.log("mounted")
       if (this.$store.state.user.token === '') {
         this.$router.push("/login")
       } else {
@@ -100,24 +103,15 @@ export default {
       }
     },
     created() {
-        console.log("created")
         this.$store.commit("SET_TOKEN", localStorage.getItem("userToken"));
         if (this.$store.state.user.token === '') {
           this.$router.push("/login")
         } else {
           this.$store.commit("LOGIN");
-          let param = new FormData;
-          param.append("token", this.$store.state.user.token)
-          this.$axios.post("/geeker/api/tasks", param).then(res => {
-            this.tasks = res.data.result
-          })
-          this.$axios.post("/geeker/api/finished", param).then(res => {
-            this.finishedTasks = res.data.result
-          })
+          this.loadAllTasks();
         }
     },
     beforeUpdate() {
-        console.log("beforeUpdated")
         if (!this.$store.state.isLogin) {
           this.tasks = {};
           alert("请登录后再试");
@@ -125,7 +119,6 @@ export default {
         }
     },
     updated() {
-      console.log("updated")
       if (this.$refs.boxCards !== undefined) {
         this.boxCardsWidth = this.$refs.boxCards['0'].$el.clientWidth;
       }
@@ -141,44 +134,68 @@ export default {
           /**
            *  没有设定完成时间和type改变, 待后端完成
            */
-          console.log(task_type)
 
-          let param = new FormData;
-          param.append("task_id", task_id);
-          param.append("task_type", task_type);
-          param.append("token", this.$store.state.user.token);
-          this.$axios.post("/geeker/api/change", param).then(res => {
+          let msg = '是否确认完成该任务?';
+          if (task_type === 1) { // 让用户再确认一下
+              msg = '是否确认还原为未完成?';
+          }
+          this.$confirm(msg, '提示', {
+            confirmButtonText: '确认',
+            cancelButtonText: '取消',
+            type: 'success'
+          }).then(()=>{
             let param = new FormData;
-            param.append("token", this.$store.state.user.token)
-            this.$axios.post("/geeker/api/tasks", param).then(res => {
-              this.tasks = res.data.result
+            param.append("task_id", task_id);
+            param.append("task_type", task_type);
+            param.append("token", this.$store.state.user.token);
+            this.$axios.post("/geeker/api/change", param).then(res => {
+              this.loadAllTasks();
+              let msg = '完成任务  '+ this.expressions[Math.floor((Math.random() * 5))] + '  已完成任务 ' + (this.finishedTasksCount + 1);
+                if (task_type === 1) {
+                   msg = "还原成功";
+                }
+                this.$message({
+                  type: 'success',
+                  message: msg
+                });
             })
-            this.$axios.post("/geeker/api/finished", param).then(res => {
-              this.finishedTasks = res.data.result
-            })
-          })
+          }).catch(() => {
+
+          });
       },
       addTask() {
           let param = new FormData;
           param.append("token", this.$store.state.user.token);
           param.append("task_content", this.new_task);
           this.$axios.post("/geeker/api/insert", param).then(res => {
-              let param = new FormData;
-              param.append("token", this.$store.state.user.token)
-              this.$axios.post("/geeker/api/tasks", param).then(res => {
-                this.tasks = res.data.result
-              })
+            this.loadUnfinishedTasks();
             this.$message({
               type: 'success',
               message: '添加成功'
             });
+            this.showAddTask = true
+            this.new_task = ""
           })
-        this.showAddTask = true
-        this.new_task = ""
-
-
       },
-      load() {
+      loadAllTasks() {
+        let param = new FormData;
+        param.append("token", this.$store.state.user.token)
+        this.$axios.post("/geeker/api/tasks", param).then(res => {
+          //this.tasks = Object.assign({},res.data.result)
+          this.tasks = res.data.result
+          this.refresh = Math.random(); //强制触发vue的diff重新渲染
+        })
+        this.$axios.post("/geeker/api/finished", param).then(res => {
+          this.finishedTasks = res.data.result
+          this.finishedTasksCount = this.finishedTasks.length
+        })
+      },
+      loadUnfinishedTasks() {
+        let param = new FormData;
+        param.append("token", this.$store.state.user.token)
+        this.$axios.post("/geeker/api/tasks", param).then(res => {
+          this.tasks = res.data.result
+        })
 
       },
       deleteTask(task_id) {
@@ -191,15 +208,7 @@ export default {
             param.append("token", this.$store.state.user.token);
             param.append("task_id", task_id);
             this.$axios.post("/geeker/api/delete", param).then(res => {
-                //删除了再加载
-                let param = new FormData;
-                param.append("token", this.$store.state.user.token)
-                this.$axios.post("/geeker/api/tasks", param).then(res => {
-                  this.tasks = res.data.result
-                })
-                this.$axios.post("/geeker/api/finished", param).then(res => {
-                  this.finishedTasks = res.data.result
-                })
+                this.loadAllTasks();//删除了再加载
                 this.$message({
                   type: 'success',
                   message: '删除成功'
@@ -259,7 +268,7 @@ export default {
           console.log(this.$refs.boxCards['1'].$el.offsetHeight)
           console.log(this.$refs.boxCards['2'].$el.offsetHeight)*/
       },
-      loadFinishedTasks(evt) {
+      loadFinishedTasks(evt) { // 改变已完成那个button的箭头方向
           /*console.log(this.$refs.finishedButtonIcon.removeAttribute('class'))
           this.$refs.finishedButtonIcon.class = "el-icon-arrow-down";*/
           if (this.$refs.finishedButtonIcon.className === "el-icon-arrow-right") { //显示已完成的任务

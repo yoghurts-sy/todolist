@@ -19,6 +19,12 @@
 
     <select id="queryUserTodolistById" resultType="com.geeker.todolist.pojo.UserTask">
     select * from user_todolist where task_userid=#{task_userid} and task_type=#{task_type}
+    <if test="task_type == 0">
+        order by task_createtime DESC
+    </if>
+        <if test="task_type == 1">
+            order by task_finishtime DESC
+        </if>
     </select>
     
     <update id="updateTaskType" parameterType="com.geeker.todolist.pojo.UserTask">

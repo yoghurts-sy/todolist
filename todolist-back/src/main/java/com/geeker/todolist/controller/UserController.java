@@ -1,23 +1,19 @@
 package com.geeker.todolist.controller;
 
 import com.geeker.todolist.common.dto.LoginDto;
-import com.geeker.todolist.entity.UserModel;
-import com.geeker.todolist.pojo.UserTask;
-import com.geeker.todolist.service.UsersService;
+import com.geeker.todolist.pojo.UserModel;
+import com.geeker.todolist.service.impl.UsersServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 //import utils.ParamsException;
 import utils.ParamsException;
 import utils.ResultInfo;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.Map;
-
 @RestController
 @RequestMapping("/geeker/api")
 public class UserController {
     @Autowired
-private UsersService usersService;
+    private UsersServiceImpl usersServiceImpl;
 
     @PostMapping("/login")
     @ResponseBody
@@ -27,7 +23,7 @@ private UsersService usersService;
         String email = user.getEmail();
         String password = user.getPassword();
        try{
-            UserModel userModel=usersService.userLogin(email,password);
+            UserModel userModel= usersServiceImpl.userLogin(email,password);
             resultInfo.setResult(userModel);
         }catch (ParamsException p){
             resultInfo.setCode(p.getCode());
@@ -47,7 +43,7 @@ private UsersService usersService;
         String email = user.getEmail();
         String password = user.getPassword();
         try{
-            UserModel userModel = usersService.userRegister(email,password);
+            UserModel userModel = usersServiceImpl.userRegister(email,password);
             resultInfo.setResult(userModel);
         }catch (ParamsException p){
             resultInfo.setCode(p.getCode());

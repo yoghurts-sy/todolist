@@ -1,10 +1,10 @@
-package com.geeker.todolist.service;
+package com.geeker.todolist.service.impl;
 
 import com.geeker.todolist.dao.UsersMapper;
-import com.geeker.todolist.entity.UserModel;
+import com.geeker.todolist.pojo.UserModel;
 import com.geeker.todolist.pojo.User;
 
-import com.geeker.todolist.pojo.UserTask;
+import com.geeker.todolist.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
@@ -14,12 +14,10 @@ import utils.nullOrNot;
 
 
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.util.List;
 
 
 @Service
-public class UsersService implements UserServe {
+public class UsersServiceImpl implements UserService {
 
 
     /**
