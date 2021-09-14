@@ -1,8 +1,7 @@
 package com.geeker.todolist.controller;
 
 import com.geeker.todolist.pojo.UserTask;
-import com.geeker.todolist.service.TaskService;
-import com.geeker.todolist.service.UsersService;
+import com.geeker.todolist.service.impl.TaskServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import utils.ParamsException;
@@ -15,7 +14,7 @@ import java.util.List;
 
 public class TaskController {
     @Autowired
-    private TaskService taskService;
+    private TaskServiceImpl taskServiceImpl;
 
     @PostMapping("/tasks")//finished
     @ResponseBody
@@ -26,7 +25,7 @@ public class TaskController {
         String tokenId=split[1];
         Integer id = Integer.parseInt(tokenId);
         try{
-            List<UserTask> userTask = taskService.userTodolist(id,0);
+            List<UserTask> userTask = taskServiceImpl.userTodolist(id,0);
             resultInfo.setResult(userTask);
         }catch(ParamsException p){
             resultInfo.setCode(p.getCode());
@@ -47,7 +46,7 @@ public class TaskController {
         String tokenId=split[1];
         Integer id = Integer.parseInt(tokenId);
         try{
-            List<UserTask> userTask = taskService.userTodolist(id,1);
+            List<UserTask> userTask = taskServiceImpl.userTodolist(id,1);
             resultInfo.setResult(userTask);
         }catch(ParamsException p){
             resultInfo.setCode(p.getCode());
@@ -81,7 +80,7 @@ public class TaskController {
         Integer id = Integer.parseInt(tokenId);
        // System.out.println(task_id);
         try{
-            UserTask userTask=taskService.updateTaskType(id,task_id,task_type);
+            UserTask userTask= taskServiceImpl.updateTaskType(id,task_id,task_type);
             resultInfo.setResult(userTask);
         }catch (ParamsException p){
             resultInfo.setCode(p.getCode());
@@ -103,7 +102,7 @@ public class TaskController {
         String tokenId=split[1];
         Integer id = Integer.parseInt(tokenId);
         try{
-            List<UserTask> userTask=taskService.insertTask(id,task_content);
+            List<UserTask> userTask= taskServiceImpl.insertTask(id,task_content);
             resultInfo.setResult(userTask);
         }catch (ParamsException p){
             resultInfo.setCode(p.getCode());
@@ -124,7 +123,7 @@ public class TaskController {
         String tokenId=split[1];
         Integer id = Integer.parseInt(tokenId);
         try{
-            UserTask userTask=taskService.updateTask(id,task_id,task_content);
+            UserTask userTask= taskServiceImpl.updateTask(id,task_id,task_content);
             resultInfo.setResult(userTask);
         }catch (ParamsException p){
             resultInfo.setCode(p.getCode());
@@ -146,7 +145,7 @@ public class TaskController {
         String tokenId=split[1];
         Integer id = Integer.parseInt(tokenId);
         try{
-            String result=taskService.deleteTask(id,task_id);
+            String result= taskServiceImpl.deleteTask(id,task_id);
             resultInfo.setResult(result);
         }catch (ParamsException p){
             resultInfo.setCode(p.getCode());

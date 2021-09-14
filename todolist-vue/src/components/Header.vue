@@ -59,7 +59,6 @@
                 /*this.activeIndex = '1'*/
             } else {
                 this.bgColor = ""
-                console.log(this.$route.path)
                 switch (this.$route.path) {
                     case "/tasks":this.activeIndex = '2'
                         break;
