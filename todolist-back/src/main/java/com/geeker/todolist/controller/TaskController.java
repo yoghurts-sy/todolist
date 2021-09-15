@@ -1,8 +1,6 @@
 package com.geeker.todolist.controller;
-
 import com.geeker.todolist.pojo.UserTask;
-import com.geeker.todolist.service.TaskService;
-import com.geeker.todolist.service.UsersService;
+import com.geeker.todolist.service.impl.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import utils.ParamsException;
@@ -69,12 +67,7 @@ public class TaskController {
             ,@RequestParam("task_type") Integer task_type
             ){
 
-        /**
-         * 判断type 然后 type取反 update,创建时间更新,完成时间去除
-         */
         System.out.println(task_type);
-
-
         ResultInfo resultInfo = new ResultInfo();
         String[] split = token.split("=");
         String tokenId=split[1];
@@ -94,10 +87,11 @@ public class TaskController {
         return  resultInfo;
     }
 
-    /*@PostMapping("/insertTask") */
     @PostMapping("/insert")
     @ResponseBody
-    public ResultInfo insertTask(@RequestParam("token") String token,@RequestParam("task_content") String task_content){
+    public ResultInfo insertTask(@RequestParam("token") String token,
+                                 @RequestParam("task_content") String task_content){
+
         ResultInfo resultInfo = new ResultInfo();
         String[] split = token.split("=");
         String tokenId=split[1];
@@ -118,7 +112,9 @@ public class TaskController {
 
     @PostMapping("/update")
     @ResponseBody
-    public  ResultInfo updateTask(@RequestParam("token") String token,@RequestParam("task_id") Integer task_id,@RequestParam("task_content") String task_content){
+    public  ResultInfo updateTask(@RequestParam("token") String token,
+                                  @RequestParam("task_id") Integer task_id,@RequestParam("task_content") String task_content){
+
         ResultInfo resultInfo = new ResultInfo();
         String[] split = token.split("=");
         String tokenId=split[1];
@@ -140,7 +136,8 @@ public class TaskController {
 
     @PostMapping("/delete")
     @ResponseBody
-    public ResultInfo deleteTask(@RequestParam("token") String token,@RequestParam("task_id") Integer task_id){
+    public ResultInfo deleteTask(@RequestParam("token") String token,
+                                 @RequestParam("task_id") Integer task_id){
         ResultInfo resultInfo=new ResultInfo();
         String[] split = token.split("=");
         String tokenId=split[1];

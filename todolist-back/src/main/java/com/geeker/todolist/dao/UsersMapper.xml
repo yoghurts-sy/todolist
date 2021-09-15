@@ -1,39 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.geeker.todolist.dao.UsersMapper">
-<select id="queryUserByEmail" resultType="com.geeker.todolist.pojo.User">
+
+    <select id="queryUserByEmail" resultType="com.geeker.todolist.pojo.User">
     select * from user where user_email=#{uEmail}
-</select>
+    </select>
+
     <select id="selectIdByEmail" resultType="com.geeker.todolist.pojo.User">
         select user_id from user where user_email=#{uEmail}
     </select>
+
     <select id="queryUsers" resultType="com.geeker.todolist.pojo.User">
         select * from user
     </select>
+
     <insert id="registerUser" parameterType="com.geeker.todolist.pojo.User" statementType="PREPARED" keyProperty="user_id">
         insert into user(user_email,user_password,user_token) values (#{uEmail},#{uPassword},'a')
     </insert>
+
     <update id="updateUser" parameterType="com.geeker.todolist.pojo.User">
         update user set user_token=concat(user_email,'?id=',cast(user_id AS char)) where user_email=#{uEmail}
     </update>
 
-    <select id="queryUserTodolistById" resultType="com.geeker.todolist.pojo.UserTask">
-    select * from user_todolist where task_userid=#{task_userid} and task_type=#{task_type}
-    </select>
-    
-    <update id="updateTaskType" parameterType="com.geeker.todolist.pojo.UserTask">
-        update user_todolist set task_type=#{task_type},task_finishtime=#{finishTime} where task_userid=#{task_userid} and task_id=#{taskId}
-    </update>
-    <select id="queryTask" resultType="com.geeker.todolist.pojo.UserTask">
-        select * from user_todolist where task_userid=#{task_userid} and task_id=#{taskId}
-    </select>
-    <insert id="insertTask" parameterType="com.geeker.todolist.pojo.UserTask" statementType="PREPARED" keyProperty="task_id">
-        insert into user_todolist(task_userid, task_content, task_type, task_createtime,task_finishtime) values (#{task_userid},#{task_content},0,now(),null)
-    </insert>
-    <update id="updateTask" >
-        update user_todolist set task_content=#{task_content} where task_userid=#{task_userid} and task_id=#{taskId}
-    </update>
-    <delete id="deleteTask" parameterType="com.geeker.todolist.pojo.UserTask" statementType="PREPARED">
-        delete from user_todolist where task_userid=#{task_userid} and task_id=#{taskId}
-    </delete>
+
+
 </mapper>
