@@ -1,4 +1,4 @@
-package utils;
+package com.geeker.todolist.utils;
 
 public class nullOrNot {
     public static void istrue(Boolean flag,String msg){
