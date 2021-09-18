@@ -150,7 +150,7 @@ export default {
             param.append("token", this.$store.state.user.token);
             this.$axios.post("/geeker/api/change", param).then(res => {
               this.loadAllTasks();
-              let msg = '完成任务  '+ this.expressions[Math.floor((Math.random() * 5))] + '  已完成任务 ' + (this.finishedTasksCount + 1);
+              let msg = '完成任务  '+ this.expressions[Math.floor((Math.random() * 5))] + '  累计完成任务 ' + (this.finishedTasksCount + 1);
                 if (task_type === 1) {
                    msg = "还原成功";
                 }
@@ -296,7 +296,7 @@ export default {
 .tasks-container {
   max-width: 980px;
   margin: 0 auto;
-  border: #409EFF 2px solid;
+  /*border: #409EFF 2px solid;*/
   padding-top: 20px;
   padding-bottom: 30px;
 }
