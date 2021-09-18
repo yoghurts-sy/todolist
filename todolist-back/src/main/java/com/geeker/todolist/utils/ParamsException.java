@@ -1,4 +1,4 @@
-package utils;
+package com.geeker.todolist.utils;
 
 public class ParamsException extends RuntimeException{
    public String Msg;
