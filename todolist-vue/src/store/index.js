@@ -9,7 +9,8 @@ export default new Vuex.Store({
     user:{
       email:"",
       token:"",
-    }
+    },
+    filterPattern:""
   },
   mutations: {
     SET_TOKEN(state, token) {
@@ -24,6 +25,14 @@ export default new Vuex.Store({
     QUIT(state){
       state.isLogin = false;
       localStorage.clear();
+    },
+    SET_FILTER(state, filter) {
+      localStorage.setItem("filterPattern", filter);
+      state.filterPattern = filter;
+    },
+    DEFAULT_FILTER(state) {
+      localStorage.setItem("filterPattern", "1");
+      state.filterPattern = "1";
     }
   },
   actions: {

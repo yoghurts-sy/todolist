@@ -179,7 +179,7 @@
 
     .carousel-container {
         width: 100%;
-        border: red 1px solid;
+        /*border: red 1px solid;*/
         background: white;
         height: 550px;
         text-align: center;

@@ -22,11 +22,11 @@
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item>创建 <i class="el-icon-date" style="color: #409EFF"></i>{{ item.task_createtime }}
               </el-dropdown-item>
-              <el-dropdown-item @click.native="deleteTask(item.task_id)" divided>
-                删除 <i class="el-icon-delete" style="color: red"></i>
-              </el-dropdown-item>
               <el-dropdown-item @click.native="changeTask(item.task_id, id)" divided>
                 修改 <i class="el-icon-edit" style="color: dodgerblue"></i>
+              </el-dropdown-item>
+              <el-dropdown-item @click.native="deleteTask(item.task_id)" divided>
+                删除 <i class="el-icon-delete" style="color: red"></i>
               </el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
@@ -119,6 +119,7 @@ export default {
   },
   created() {
     this.$store.commit("SET_TOKEN", localStorage.getItem("userToken"));
+    this.$store.commit("SET_FILTER", localStorage.getItem("filterPattern"));
     if (!this.$store.state.user.token) {
       this.$router.push("/login")
     } else {
@@ -146,9 +147,6 @@ export default {
       this.$refs.icons[index].style.color = "white";
     },
     changeTaskStatus(task_id, task_type) { //status=0，代表对已完成任务操作，1为对未完成任务操作
-      /**
-       *  没有设定完成时间和type改变, 待后端完成
-       */
 
       let msg = '是否确认完成该任务?';
       if (task_type === 1) { // 让用户再确认一下
@@ -193,6 +191,7 @@ export default {
       })
     },
     loadAllTasks() {
+      let pattern = this.$store.state.filterPattern;
       let param = new FormData;
       param.append("token", this.$store.state.user.token)
       this.$axios.post("/geeker/api/tasks", param).then(res => {
