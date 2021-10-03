@@ -37,9 +37,9 @@ export default {
   components: {Header},
   data() {
 
-    const validatePass = (rule, value, callback) => {
+      const validatePass = (rule, value, callback) => {
       const PASSOWRD_REG_WEEK = /^[0-9]{6,8}$|^[A-Z]{6,8}$|^[a-z]{6,8}$|^[\W_!@#$%^&*`~()-+=]{6,8}$/;
-// eslint-disable-next-line no-control-regex
+      // eslint-disable-next-line no-control-regex
       const PASSOWRD_REG_MIDDLE = /^(?!\d+$)(?![a-zA-Z]+$)[\da-zA-Z]{8,10}$|^(?!\d+$)(?![\x00-\xff]+$)[\d\x00-\xff]{8,10}$|^(?!a-zA-Z+$)(?![\x00-\xff]+$)[a-zA-Z\x00-\xff]{8,10}$/;
       const PASSOWRD_REG_POWER = /^(?=.*[a-zA-Z])(?=.*[\W_!@#$%^&*`~()-+=])(?=.*\d)[^]{10,16}$|^(?=.*[a-zA-Z])(?=.*[\W_!@#$%^&*`~()-+=])[^]{10,16}$|^(?=.*\d)(?=.*[\W_!@#$%^&*`~()-+=])[^]{10,16}$|^(?=.*[a-zA-Z])(?=.*\d)[^]{10,16}$/;
 

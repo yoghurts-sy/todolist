@@ -10,3 +10,5 @@
     
     
     已完成的任务里，对✔点击时，加一个确认。可以回到未完成状态。
+    
+    docker run --name mysql01 -e MYSQL_ROOT_PASSWORD=123456 -p 3306:3306 -d mysql:5.7.27

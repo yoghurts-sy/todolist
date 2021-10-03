@@ -9,9 +9,10 @@
             <el-menu-item index="2" id="item-2">我的任务</el-menu-item>
             <el-submenu index="3" id="item-3">
                 <template slot="title">筛选</template>
-                <el-menu-item index="3-1">今日</el-menu-item>
-                <el-menu-item index="3-2">已完成</el-menu-item>
-                <el-menu-item index="3-3">未完成</el-menu-item>
+                <el-menu-item index="3-1">默认</el-menu-item>
+                <el-menu-item index="3-2">今日创建任务</el-menu-item>
+                <el-menu-item index="3-3">优先显示新创建任务</el-menu-item>
+                <el-menu-item index="3-4">优先显示加急任务</el-menu-item>
             </el-submenu>
             <el-menu-item index="4" id="item-4">详情</el-menu-item>
             <el-menu-item index="5" id="item-5">历史</el-menu-item>
@@ -20,9 +21,10 @@
                 <el-menu-item index="6-1">主页</el-menu-item>
                 <el-submenu index="6-2">
                     <template slot="title">筛选</template>
-                    <el-menu-item index="6-2-1">今日</el-menu-item>
-                    <el-menu-item index="6-2-2">已完成</el-menu-item>
-                    <el-menu-item index="6-2-3">未完成</el-menu-item>
+                    <el-menu-item index="6-2-1">默认</el-menu-item>
+                    <el-menu-item index="6-2-2">今日创建任务</el-menu-item>
+                    <el-menu-item index="6-2-3">优先显示新创建任务</el-menu-item>
+                    <el-menu-item index="6-2-4">优先显示加急任务</el-menu-item>
                 </el-submenu>
                 <el-menu-item index="6-3" >登录</el-menu-item>
             </el-submenu>
@@ -81,9 +83,22 @@
         methods:{
             handleSelect(key, keyPath) {
                 //console.log(key);
+                let _this = this
                 switch (key) {
                     case "2":
                         this.$router.push("/tasks")
+                        break;
+                    case "3-1": // default filter
+                        _this.$store.commit('DEFAULT_FILTER');
+                        break;
+                    case "3-2":
+                        _this.$store.commit('SET_FILTER', "2");
+                        break;
+                    case "3-3":
+                        _this.$store.commit('SET_FILTER', "3");
+                        break;
+                    case "3-4":
+                        _this.$store.commit('SET_FILTER', "4");
                         break;
                 }
             },
