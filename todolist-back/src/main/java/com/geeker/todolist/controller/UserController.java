@@ -55,4 +55,11 @@ public class UserController {
         }
         return resultInfo;
     }
+
+
+    @GetMapping("/hello")
+    @ResponseBody
+    public String hello() {
+        return "Hello World!";
+    }
 }
