@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 public class UserTask {
    private Integer task_id;
    private  Integer task_userid;
-   private Integer task_type;
+   private Integer task_type;  // 加急任务 task_type = 2
    private String task_content;
 
    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
