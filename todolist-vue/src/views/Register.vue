@@ -1,29 +1,28 @@
 <template>
-  <div class="parent">
-    <div class="head">
-      <Header></Header>
-    </div>
-    <div class="body">
+  <div>
+    <Header></Header>
+    <br/><br/><br/><br/>
+    <el-row :gutter="10">
+      <el-col :xs="{span:21,offset:0}" :sm="{span:16,offset:4}" :md="{span:12,offset:6}">
+        <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+          <el-form-item label="邮箱" prop="email" >
+            <el-input type="text" v-model="ruleForm.email" autocomplete="off"></el-input>
+          </el-form-item>
 
-      <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-        <el-form-item label="邮箱" prop="email" >
-          <el-input type="text" v-model="ruleForm.email" autocomplete="off"></el-input>
-        </el-form-item>
+          <el-form-item label="密码" prop="pass">
+            <el-input type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
+          </el-form-item>
+          <el-form-item label="确认密码" prop="checkPass">
+            <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
+          </el-form-item>
 
-        <el-form-item label="密码" prop="pass">
-          <el-input type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="确认密码" prop="checkPass">
-          <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
-        </el-form-item>
-
-        <el-form-item>
-          <el-button type="primary" @click="submitForm('ruleForm')">注册</el-button>
-          <el-button @click="resetForm('ruleForm')">重置</el-button>
-        </el-form-item>
-      </el-form>
-
-    </div>
+          <el-form-item>
+            <el-button type="primary" @click="submitForm('ruleForm')">注册</el-button>
+            <el-button @click="resetForm('ruleForm')">重置</el-button>
+          </el-form-item>
+        </el-form>
+      </el-col>
+    </el-row>
 
 
   </div>

@@ -52,7 +52,7 @@
         },
         methods:{
             toAction() {
-                console.log("go to Action!")
+                this.$router.push({name:"Tasks"});
             },
             toAbout() {
                 console.log("go to About!")

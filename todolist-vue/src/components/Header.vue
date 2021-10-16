@@ -18,15 +18,17 @@
             <el-menu-item index="5" id="item-5">历史</el-menu-item>
             <el-submenu index="6" class="flexible-content">
                 <template slot="title">📋</template>
-                <el-menu-item index="6-1">主页</el-menu-item>
+                <el-menu-item index="6-1" @click="toIndex">主页</el-menu-item>
                 <el-submenu index="6-2">
                     <template slot="title">筛选</template>
                     <el-menu-item index="6-2-1">默认</el-menu-item>
                     <el-menu-item index="6-2-2">今日创建任务</el-menu-item>
                     <el-menu-item index="6-2-3">优先显示新创建任务</el-menu-item>
-                    <el-menu-item index="6-2-4">优先显示加急任务</el-menu-item>
+                    <el-menu-item index="6-2-4" >优先显示加急任务</el-menu-item>
                 </el-submenu>
-                <el-menu-item index="6-3" >登录</el-menu-item>
+                <el-menu-item index="6-3" @click="loginEvent" v-if="!this.$store.state.isLogin">登录</el-menu-item>
+                <el-menu-item index="6-4" @click="quit" v-if="this.$store.state.isLogin">退出登录</el-menu-item>
+
             </el-submenu>
 
             <el-submenu index="7" id="item-login" style="float: right" v-if="this.$store.state.isLogin">
