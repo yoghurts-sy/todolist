@@ -1,4 +1,10 @@
 # todolist
+Welcome to star this little tiny project. It is a small but easy for you to learn how to build a basic framework via Vue2.0 and SpringBoot. You probably could learn something from this if you are the very first time to get started with Vue2.0 and SpringBoot. 
+## feature:
+* login and signup
+* add task, edit task and del task
+* responsive to pc and phone
+
 commit时后面跟的信息
 * feat : 开发了具体的需求功能
 * msg；简单操作
