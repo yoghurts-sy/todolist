@@ -170,6 +170,9 @@
             width: 100%;
             height: 30%;
         }
+        .carousel-container {
+            display: none;
+        }
     }
     @media (max-width: 400px) {
         .showVersion {
