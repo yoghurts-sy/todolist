@@ -5,6 +5,10 @@ Welcome to star this little tiny project. It is a small but easy for you to lear
 * add task, edit task and del task
 * responsive to pc and phone
 
+http://121.5.168.45/
+TestEmail:123@sina.com
+TestPassword:123456
+
 commit时后面跟的信息
 * feat : 开发了具体的需求功能
 * msg；简单操作
