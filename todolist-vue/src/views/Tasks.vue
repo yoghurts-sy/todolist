@@ -6,18 +6,22 @@
         <div class="tasks-container" :key="refresh">
           <el-card class="box-card" v-for="(item,id) in tasks" :key="'taskId-'+item.task_id" ref="boxCards">
             <div class="task-item">
-              <el-button size="mini" class="finishButton" circle @mouseover.native="hoverButton(id)"
-                         @mouseleave.native="leaveButton(id)" @click="changeTaskStatus(item.task_id, item.task_type)">
-                <i class="el-icon-check" ref="icons" style="color: white"></i>
-              </el-button>
+              <div class="finishButton-box">
+                <el-button size="mini" class="finishButton" circle @mouseover.native="hoverButton(id)"
+                           @mouseleave.native="leaveButton(id)" @click="changeTaskStatus(item.task_id, item.task_type)">
+                  <i class="el-icon-check" ref="icons" style="color: white"></i>
+                </el-button>
+              </div>
               <div class="task-content" ref="taskContent">
                 {{ item.task_content }}
               </div>
-              <div ref="taskInput" style="display: none">
-                <el-input suffix-icon="el-icon-edit" ref="task_input" v-model="taskText" @blur="submitChange(item.task_id, id)" @keydown.enter.native="submitChange(item.task_id, id)" class="task-input" ></el-input>
+              <div ref="taskInput" style="display: none" class="task-content">
+                <el-input suffix-icon="el-icon-edit" ref="task_input" type="textarea"  maxlength="120"
+                          show-word-limit autosize v-model="taskText" @blur="submitChange(item.task_id, id)" @keydown.enter.native="submitChange(item.task_id, id)"  ></el-input>
                 <!--            <el-button @click="submitChange(item.task_id, id)" class="changeSubmitButton" type="primary" icon="el-icon-check" circle></el-button>-->
               </div>
-              <el-dropdown class="moreButton">
+              <div class="moreButton-box">
+                <el-dropdown class="moreButton">
                           <span class="el-dropdown-link">
                             <i class="el-icon-more"></i>
                           </span>
@@ -32,55 +36,62 @@
                   </el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
+              </div>
               <!--<el-link icon="el-icon-more" class="moreButton"  :underline="false"></el-link>-->
             </div>
           </el-card>
           <div class="add-task-box" v-if="!showAddTask">
             <el-input v-model="new_task" type="textarea"
+                      maxlength="120"
+                      show-word-limit
                       autosize
                       placeholder="请输入内容"></el-input>
-            <el-button @click="addTask" size="mini" style="margin-top: 10px"><i class="el-icon-s-flag"></i> 添加</el-button>
-            <el-button size="mini" style="margin-top: 10px" @click="addTaskButtonEvt"><i class="el-icon-close"
+            <el-button @click="addTask" size="mini" style="margin-top: 5px"><i class="el-icon-s-flag"></i> 添加</el-button>
+            <el-button size="mini" style="margin-top: 5px" @click="addTaskButtonEvt"><i class="el-icon-close"
                                                                                          style="color: red"></i> 取消
             </el-button>
           </div>
-
-
-          <el-button class="finishedButton" v-if="showAddTask" size="mini" @click="loadFinishedTasks"><i
-              class="el-icon-arrow-right" ref="finishedButtonIcon"></i> 已完成
-            <span style="color:#ACB0AE">
+          <div class="button-box">
+            <el-button class="finishedButton" v-if="showAddTask" size="mini" @click="loadFinishedTasks"><i
+                    class="el-icon-arrow-right" ref="finishedButtonIcon"></i> 已完成
+              <span style="color:#ACB0AE">
                     {{ finishedTasksCount }}
                 </span>
-          </el-button>
-          <el-button class="finishedButton" v-if="showAddTask" size="mini" @click="addTaskButtonEvt"><i
-              class="el-icon-s-flag"></i> 添加任务
-          </el-button>
+            </el-button>
+            <el-button class="finishedButton" v-if="showAddTask" size="mini" @click="addTaskButtonEvt"><i
+                    class="el-icon-s-flag"></i> 添加任务
+            </el-button>
+          </div>
+
           <el-card class="box-card" v-show="showFinished" v-for="(item, id) in finishedTasks" :key="item.task_id+'-only'">
             <div class="task-item">
-              <el-button size="mini" class="finishButton" circle @click="changeTaskStatus(item.task_id, item.task_type)">
-                <i class="el-icon-check" style="color: green"></i>
-              </el-button>
+              <div class="finishButton-box">
+                <el-button size="mini" class="finishButton" circle @click="changeTaskStatus(item.task_id, item.task_type)">
+                  <i class="el-icon-check" style="color: green"></i>
+                </el-button>
+              </div>
               <div class="task-content" style="text-decoration: line-through;">
                 {{ item.task_content }}
               </div>
-              <el-dropdown class="moreButton">
+              <div class="moreButton-box">
+                <el-dropdown class="moreButton">
                           <span class="el-dropdown-link">
                             <i class="el-icon-more"></i>
                           </span>
-                <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item>创建 <i class="el-icon-date" style="color: #409EFF"></i>{{ item.task_createtime }}
-                  </el-dropdown-item>
-                  <el-dropdown-item>完成 <i class="el-icon-date" style="color: green"></i>{{ item.task_finishtime }}
-                  </el-dropdown-item>
-                  <el-dropdown-item @click.native="changeTaskStatus(item.task_id, item.task_type)" divided>
-                    还原为未完成 <i class="el-icon-refresh" style="color: chartreuse"></i>
-                  </el-dropdown-item>
-                  <el-dropdown-item @click.native="deleteTask(item.task_id)" divided>
-                    删除 <i class="el-icon-delete" style="color: red"></i>
-                  </el-dropdown-item>
-                </el-dropdown-menu>
-              </el-dropdown>
-              <!--<el-link icon="el-icon-more" class="moreButton"  :underline="false"></el-link>-->
+                  <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-item>创建 <i class="el-icon-date" style="color: #409EFF"></i>{{ item.task_createtime }}
+                    </el-dropdown-item>
+                    <el-dropdown-item>完成 <i class="el-icon-date" style="color: green"></i>{{ item.task_finishtime }}
+                    </el-dropdown-item>
+                    <el-dropdown-item @click.native="changeTaskStatus(item.task_id, item.task_type)" divided>
+                      还原为未完成 <i class="el-icon-refresh" style="color: chartreuse"></i>
+                    </el-dropdown-item>
+                    <el-dropdown-item @click.native="deleteTask(item.task_id)" divided>
+                      删除 <i class="el-icon-delete" style="color: red"></i>
+                    </el-dropdown-item>
+                  </el-dropdown-menu>
+                </el-dropdown>
+              </div>
             </div>
           </el-card>
         </div>
@@ -185,6 +196,8 @@ export default {
       let param = new FormData;
       param.append("token", this.$store.state.user.token);
       param.append("task_content", this.new_task);
+      console.log(this.new_task)
+      console.log(this.new_task.trim())
       this.$axios.post("/geeker/api/insert", param).then(res => {
         this.loadUnfinishedTasks();
         this.$message({
@@ -360,27 +373,22 @@ export default {
   max-width: 780px;
   padding: 0 0;
 }
+.button-box {
+  margin: 0 auto;
+  max-width: 780px;
+  padding: 0 0;
+}
 
 .el-icon-check {
   font-weight: bolder;
 }
 
 .task-item {
-  font-size: 14px;
-  /*border: black 2px solid;*/
-  overflow: hidden;
-}
-
-.task-content {
-  float: left;
-  max-width: 600px;
-  margin-top: 3px;
-  /*border: brown 2px solid;*/
-}
-
-.task-input {
-  float: left;
-  width: 85%;
+  /*border: yellow 2px solid;*/
+  /*font-size: 14px;
+  overflow: hidden;*/
+  display: grid;
+  grid-template: auto 1fr auto / auto 1fr auto
 }
 
 .task-input>>>.el-input__inner{
@@ -391,19 +399,41 @@ export default {
 
 }
 
-.finishButton {
-  float: left;
-  margin-right: 20px;
+.finishButton-box {
+ /* border: red solid 2px;*/
+  grid-column: 1 / 2;
 }
 
-.moreButton {
-  float: right;
-  margin-right: 10px;
+.finishButton {
+  /*float: left;*/
+  /*margin-right: 20px;*/
+}
+
+.task-content { /*不应该为float*/
+  /*float: left;*/
+  /*max-width: 600px;*/
+  /*width: 60%;*/
+  margin-top: 3px;
+  /*border: black 2px solid;*/
+  grid-column: 2 / 3;
+  padding-left: 5px;
+  padding-right: 5px;
+  word-break:break-all;
+}
+.task-input {
+  float: left;
+  width: 85%;
+}
+
+.moreButton-box {
+  /*float: right;*/
+/*  margin-right: 10px;*/
+  grid-column: 3 / 4;
+  /*border: burlywood solid 2px;*/
 }
 
 .finishedButton {
   margin-top: 20px;
-  margin-left: 100px;;
   margin-bottom: 10px;
 }
 </style>

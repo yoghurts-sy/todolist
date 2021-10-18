@@ -19,7 +19,7 @@
             <el-submenu index="6" class="flexible-content">
                 <template slot="title">📋</template>
                 <el-menu-item index="6-1" @click="toIndex">主页</el-menu-item>
-                <el-submenu index="6-2">
+                <el-submenu index="6-2" style="display: none">
                     <template slot="title">筛选</template>
                     <el-menu-item index="6-2-1">默认</el-menu-item>
                     <el-menu-item index="6-2-2">今日创建任务</el-menu-item>
@@ -27,7 +27,8 @@
                     <el-menu-item index="6-2-4" >优先显示加急任务</el-menu-item>
                 </el-submenu>
                 <el-menu-item index="6-3" @click="loginEvent" v-if="!this.$store.state.isLogin">登录</el-menu-item>
-                <el-menu-item index="6-4" @click="quit" v-if="this.$store.state.isLogin">退出登录</el-menu-item>
+                <el-menu-item index="2" v-if="this.$store.state.isLogin">我的任务</el-menu-item>
+                <el-menu-item index="6-4" @click="quit" v-if="this.$store.state.isLogin">退出登录 <span style="color: #2F55D4;font-weight: bold">{{$store.state.user.email}}</span></el-menu-item>
 
             </el-submenu>
 
