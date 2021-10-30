@@ -5,7 +5,7 @@ Welcome to star this little tiny project. It is a small but easy for you to lear
 * add task, edit task and del task
 * responsive to pc and phone
 
-http://121.5.168.45/
+https://geeker.love/
 TestEmail:123@sina.com
 TestPassword:123456
 
@@ -18,3 +18,7 @@ commit时后面跟的信息
 
 **最后加上 by xxx**
 例如by yoghurt
+
+
+
+BUG:时区问题没有解决，比北京时间慢8个小时

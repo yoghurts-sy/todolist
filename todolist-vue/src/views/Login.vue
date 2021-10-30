@@ -87,7 +87,6 @@ export default {
         if (valid) {
           console.log(this.ruleForm);
           this.$axios.post("/geeker/api/login", this.ruleForm).then(res=> {
-            console.log(res.data);
             if (res.data.msg != "success") {
               alert(res.data.msg);
             } else {
