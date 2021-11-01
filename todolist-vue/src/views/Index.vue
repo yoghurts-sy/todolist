@@ -29,6 +29,9 @@
             </el-carousel>
         </div>
 
+      <div style="font-size: 14px">
+        互联网ICP备案：<el-link href="https://beian.miit.gov.cn" target="_blank">陕ICP备2021013237号</el-link>
+      </div>
     </div>
 </template>
 
