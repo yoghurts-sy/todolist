@@ -1,5 +1,5 @@
 # todolist
-Welcome to star this little tiny project. It is a small but easy for you to learn how to build a basic framework via Vue2.0 and SpringBoot. You probably could learn something from this if you are the very first time to get started with Vue2.0 and SpringBoot. 
+Welcome to star this little tiny project. It is a small but friendly for you to learn how to build a basic framework via Vue2.x and SpringBoot. You probably can learn something from it if you are the very first time to initiate a project with Vue and SpringBoot. 
 ## feature:
 * login and signup
 * add task, edit task and del task
